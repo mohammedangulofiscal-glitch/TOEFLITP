@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Written Expression · Temas 32–43 · TOEFL ITP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* ── LIGHT PALETTE (misma del index) ─────────────── */
+      --bg:        #EAF2F0;
+      --surface:   #FFFFFF;
+      --surface-2: #F3F8F6;
+      --ink:       #0D3B3A;
+      --teal:      #12A594;
+      --teal-d:    #0A7468;
+      --teal-soft: #D8EFEB;
+      --coral:     #FF7A5C;
+      --coral-d:   #E85E3F;
+      --amber:     #F6B24B;
+      --blue:      #2FB6C6;
+      --text:      #143230;
+      --muted:     #64827F;
+      --line:      #DFEBE8;
+      --shadow:    rgba(13,59,58,.09);
+      --shadow-lg: rgba(13,59,58,.14);
+
+      --font-display: 'Bricolage Grotesque', 'Plus Jakarta Sans', sans-serif;
+      --font-body:    'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    ::selection { background: var(--teal-soft); color: var(--ink); }
+
+    .wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 46px 18px 56px;
+    }
+
+    /* ── HEADER ─────────────────────────────────────────── */
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .22em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .eyebrow::before, .eyebrow::after {
+      content: "";
+      height: 1px;
+      width: 46px;
+      background: linear-gradient(90deg, transparent, var(--line));
+    }
+    .eyebrow::after { background: linear-gradient(90deg, var(--line), transparent); }
+
+    .head-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 7vw, 2.65rem);
+      font-weight: 800;
+      color: var(--ink);
+      text-align: center;
+      line-height: 1.08;
+      letter-spacing: -.01em;
+    }
+    .head-title em { color: var(--teal); font-style: normal; }
+
+    .head-sub {
+      max-width: 460px;
+      margin: 16px auto 0;
+      text-align: center;
+      font-size: .9rem;
+      line-height: 1.6;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .head-count {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .count-chip {
+      font-size: .66rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      color: var(--teal-d);
+      background: var(--teal-soft);
+      border: 1px solid rgba(18,165,148,.25);
+      padding: 6px 14px;
+      border-radius: 20px;
+    }
+
+    /* ── CARD LIST ──────────────────────────────────────── */
+    .topic-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .topic-card {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px 18px 16px 22px;
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform .15s ease, box-shadow .22s ease, border-color .22s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    /* barra de acento a la izquierda */
+    .topic-card::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 12px; bottom: 12px;
+      width: 5px;
+      border-radius: 0 5px 5px 0;
+      background: var(--accent, var(--teal));
+    }
+    .topic-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px var(--shadow);
+      border-color: var(--accent, var(--teal));
+    }
+    .topic-card:active { transform: scale(.99); }
+
+    .t-num {
+      flex-shrink: 0;
+      font-family: var(--font-display);
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--muted);
+      width: 20px;
+      text-align: center;
+    }
+
+    .t-icon {
+      flex-shrink: 0;
+      width: 46px; height: 46px;
+      border-radius: 13px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--accent-soft, var(--teal-soft));
+      color: var(--accent, var(--teal));
+    }
+    .t-icon svg { width: 22px; height: 22px; }
+
+    .t-body { flex: 1; min-width: 0; }
+    .t-body h3 {
+      font-family: var(--font-display);
+      font-size: .96rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.35;
+      display: inline;
+    }
+    .t-body .t-desc {
+      font-family: var(--font-body);
+      font-size: .82rem;
+      font-weight: 500;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .t-es {
+      display: block;
+      font-size: .64rem;
+      font-weight: 600;
+      letter-spacing: .02em;
+      color: var(--accent, var(--teal-d));
+      margin-top: 5px;
+      text-transform: uppercase;
+    }
+
+    .t-arrow {
+      flex-shrink: 0;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: var(--surface-2);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted);
+      transition: background .2s, color .2s;
+    }
+    .topic-card:hover .t-arrow { background: var(--accent, var(--teal)); color: #fff; }
+    .t-arrow svg { width: 16px; height: 16px; }
+
+    /* ── FOOTER ─────────────────────────────────────────── */
+    .foot {
+      margin-top: 42px;
+      text-align: center;
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: .2em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 30px;
+      padding: 11px 20px;
+      border-radius: 12px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      font-size: .8rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: border-color .18s, transform .12s;
+    }
+    .back-wrap { display: flex; justify-content: center; }
+    .back-link:hover { border-color: var(--teal); }
+    .back-link:active { transform: scale(.97); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <div class="eyebrow">TOEFL ITP · WRITTEN EXPRESSION</div>
+
+    <h1 class="head-title">Expresión <em>escrita</em>,<br>parte&nbsp;3</h1>
+
+    <p class="head-sub">Del tema 32 al 43: formas de palabra, elección léxica y reglas clave de <strong>Written Expression</strong> para pulir tu redacción en inglés.</p>
+
+    <div class="head-count"><span class="count-chip">12 temas · continuación</span></div>
+
+    <div class="topic-list" id="topicList"></div>
+
+    <div class="back-wrap">
+      <a class="back-link" href="index.html">← Volver al inicio</a>
+    </div>
+
+    <div class="foot">TOEFL ITP · Written Expression</div>
+
+  </div>
+
+  <script>
+    /* ── Íconos de línea (SVG, heredan el color de acento) ── */
+    const ICONS = {
+      type:     '<polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/>',
+      check:    '<polyline points="20 6 9 17 4 12"/>',
+      bolt:     '<polygon points="13 2 4 14 12 14 11 22 20 10 12 10 13 2"/>',
+      parallel: '<line x1="4" y1="16" x2="14" y2="6"/><line x1="10" y1="18" x2="20" y2="8"/>',
+      user:     '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+      copy:     '<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/>',
+      link:     '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',
+      pin:      '<path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+      align:    '<line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="14" y2="12"/><line x1="4" y1="18" x2="18" y2="18"/>',
+      trending: '<polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>',
+      sort:     '<path d="M7 4v16"/><polyline points="3 8 7 4 11 8"/><path d="M17 20V4"/><polyline points="13 16 17 20 21 16"/>',
+      merge:    '<path d="M6 3v6a6 6 0 0 0 6 6 6 6 0 0 0 6-6V3"/><line x1="12" y1="15" x2="12" y2="21"/>'
+    };
+
+    /* ── Colores de acento (todos de la paleta del index) ── */
+    const ACCENTS = [
+      { c: 'var(--teal)',   s: 'rgba(18,165,148,.14)'  },
+      { c: 'var(--coral)',  s: 'rgba(255,122,92,.15)'  },
+      { c: 'var(--amber)',  s: 'rgba(246,178,75,.18)'  },
+      { c: 'var(--blue)',   s: 'rgba(47,182,198,.15)'  },
+      { c: 'var(--teal-d)', s: 'rgba(10,116,104,.14)'  }
+    ];
+
+    /* ── Temas 32–43 · Written Expression ── */
+    const TOPICS = [
+      { n: 32, en: 'Word Forms',                  es: 'Formas de palabra',            ic: 'type',     desc: 'Elegir la forma correcta de la palabra (sustantivo, verbo, adjetivo o adverbio) según su función.' },
+      { n: 33, en: 'Word Choice',                 es: 'Elección de palabra',          ic: 'check',    desc: 'Seleccionar la palabra precisa que encaja en el contexto y evitar confusiones comunes.' },
+      { n: 34, en: 'Verbs',                       es: 'Verbos',                       ic: 'bolt',     desc: 'Concordancia, tiempo verbal y forma correcta del verbo dentro de la oración.' },
+      { n: 35, en: 'Parallel Structures',         es: 'Estructuras paralelas',        ic: 'parallel', desc: 'Mantener la misma forma gramatical en listas, series y comparaciones.' },
+      { n: 36, en: 'Pronouns',                    es: 'Pronombres',                   ic: 'user',     desc: 'Usar el pronombre correcto y que concuerde con la palabra a la que se refiere.' },
+      { n: 37, en: 'Singular and Plural Nouns',   es: 'Sustantivos singular y plural', ic: 'copy',    desc: 'Distinguir cuándo un sustantivo va en singular o plural y cuidar la concordancia.' },
+      { n: 38, en: 'Verbals',                     es: 'Verboides',                    ic: 'link',     desc: 'Gerundios, infinitivos y participios que funcionan como otras partes de la oración.' },
+      { n: 39, en: 'Prepositions',                es: 'Preposiciones',                ic: 'pin',      desc: 'Elegir la preposición correcta (in, on, at, for…) según el contexto.' },
+      { n: 40, en: 'Articles',                    es: 'Artículos',                    ic: 'align',    desc: 'Uso de a, an y the, y cuándo un sustantivo no lleva artículo.' },
+      { n: 41, en: 'Comparatives and Superlatives', es: 'Comparativos y superlativos', ic: 'trending', desc: 'Formar y usar comparativos y superlativos correctamente: -er, more, the most…' },
+      { n: 42, en: 'Word Order',                  es: 'Orden de palabras',            ic: 'sort',     desc: 'La posición correcta de cada palabra dentro de la oración en inglés.' },
+      { n: 43, en: 'Conjunctions',                es: 'Conjunciones',                 ic: 'merge',    desc: 'Palabras que conectan ideas: and, but, or, so, although y las correlativas.' }
+    ];
+
+    const list = document.getElementById('topicList');
+    list.innerHTML = TOPICS.map((t, i) => {
+      const a = ACCENTS[i % ACCENTS.length];
+      const file = 'written' + t.n + '.html';
+      return `
+        <div class="topic-card" style="--accent:${a.c};--accent-soft:${a.s}"
+             onclick="abrirTema('${file}')" role="button" tabindex="0">
+          <span class="t-num">${t.n}</span>
+          <div class="t-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[t.ic]}</svg></div>
+          <div class="t-body">
+            <h3>${t.en}</h3>
+            <span class="t-desc"> — ${t.desc}</span>
+            <span class="t-es">${t.es}</span>
+          </div>
+          <div class="t-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></div>
+        </div>`;
+    }).join('');
+
+    function abrirTema(file) {
+      // Abre la página del tema. Crea estos archivos (written32.html … written43.html)
+      // o dime los nombres reales y los cambio.
+      window.location.href = file;
+    }
+
+    // Accesibilidad: activar con Enter
+    list.addEventListener('keydown', e => {
+      if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('topic-card')) {
+        e.preventDefault(); e.target.click();
+      }
+    });
+  </script>
+</body>
+</html>
