@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Tests completos · TOEFL ITP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* ── LIGHT PALETTE (misma del index) ─────────────── */
+      --bg:        #EAF2F0;
+      --surface:   #FFFFFF;
+      --surface-2: #F3F8F6;
+      --ink:       #0D3B3A;
+      --teal:      #12A594;
+      --teal-d:    #0A7468;
+      --teal-soft: #D8EFEB;
+      --coral:     #FF7A5C;
+      --coral-d:   #E85E3F;
+      --amber:     #F6B24B;
+      --blue:      #2FB6C6;
+      --text:      #143230;
+      --muted:     #64827F;
+      --line:      #DFEBE8;
+      --shadow:    rgba(13,59,58,.09);
+      --shadow-lg: rgba(13,59,58,.14);
+
+      /* ── Tipografía: Poppins ── */
+      --font-display: 'Poppins', system-ui, sans-serif;
+      --font-body:    'Poppins', system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    ::selection { background: var(--teal-soft); color: var(--ink); }
+
+    .wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 52px 20px 60px;
+    }
+
+    /* ── HEADER ─────────────────────────────────────────── */
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+    .eyebrow::before, .eyebrow::after {
+      content: "";
+      height: 1px;
+      width: 46px;
+      background: linear-gradient(90deg, transparent, var(--line));
+    }
+    .eyebrow::after { background: linear-gradient(90deg, var(--line), transparent); }
+
+    .head-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 8.5vw, 3.4rem);
+      font-weight: 800;
+      color: var(--ink);
+      text-align: center;
+      line-height: 1.08;
+      letter-spacing: -.02em;
+    }
+    .head-title em { color: var(--teal); font-style: normal; }
+
+    .head-sub {
+      max-width: 520px;
+      margin: 20px auto 0;
+      text-align: center;
+      font-size: 1.08rem;
+      line-height: 1.6;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .head-count {
+      display: flex;
+      justify-content: center;
+      margin-top: 24px;
+    }
+    .count-chip {
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .03em;
+      color: var(--teal-d);
+      background: var(--teal-soft);
+      border: 1px solid rgba(18,165,148,.25);
+      padding: 8px 18px;
+      border-radius: 24px;
+    }
+
+    /* ── CARD LIST ──────────────────────────────────────── */
+    .topic-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 40px;
+    }
+
+    .topic-card {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 20px 22px 20px 26px;
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform .15s ease, box-shadow .22s ease, border-color .22s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    /* barra de acento a la izquierda */
+    .topic-card::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 14px; bottom: 14px;
+      width: 6px;
+      border-radius: 0 6px 6px 0;
+      background: var(--accent, var(--teal));
+    }
+    .topic-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px var(--shadow);
+      border-color: var(--accent, var(--teal));
+    }
+    .topic-card:active { transform: scale(.99); }
+
+    .t-num {
+      flex-shrink: 0;
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--muted);
+      width: 24px;
+      text-align: center;
+    }
+
+    .t-icon {
+      flex-shrink: 0;
+      width: 54px; height: 54px;
+      border-radius: 15px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--accent-soft, var(--teal-soft));
+      color: var(--accent, var(--teal));
+    }
+    .t-icon svg { width: 27px; height: 27px; }
+
+    .t-body { flex: 1; min-width: 0; }
+    .t-body h3 {
+      font-family: var(--font-display);
+      font-size: 1.18rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.35;
+      display: inline;
+    }
+    .t-body .t-desc {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    .t-es {
+      display: block;
+      font-size: .74rem;
+      font-weight: 600;
+      letter-spacing: .02em;
+      color: var(--accent, var(--teal-d));
+      margin-top: 7px;
+      text-transform: uppercase;
+    }
+
+    .t-arrow {
+      flex-shrink: 0;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--surface-2);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted);
+      transition: background .2s, color .2s;
+    }
+    .topic-card:hover .t-arrow { background: var(--accent, var(--teal)); color: #fff; }
+    .t-arrow svg { width: 19px; height: 19px; }
+
+    /* ── FOOTER ─────────────────────────────────────────── */
+    .foot {
+      margin-top: 48px;
+      text-align: center;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 34px;
+      padding: 14px 26px;
+      border-radius: 14px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      font-size: .95rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: border-color .18s, transform .12s;
+    }
+    .back-wrap { display: flex; justify-content: center; }
+    .back-link:hover { border-color: var(--teal); }
+    .back-link:active { transform: scale(.97); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <div class="eyebrow">TOEFL ITP · SECTION 2</div>
+
+    <h1 class="head-title">Tests <em>completos</em></h1>
+
+    <p class="head-sub">10 exámenes completos con el formato real del TOEFL ITP: <strong>15 preguntas de Structure</strong> y <strong>25 de Written Expression</strong> en cada uno.</p>
+
+    <div class="head-count"><span class="count-chip">10 exámenes · 40 preguntas c/u</span></div>
+
+    <div class="topic-list" id="topicList"></div>
+
+    <div class="back-wrap">
+      <a class="back-link" href="index.html">← Volver al inicio</a>
+    </div>
+
+    <div class="foot">TOEFL ITP · Structure &amp; Written Expression</div>
+
+  </div>
+
+  <script>
+    /* ── Ícono de examen (SVG, hereda el color de acento) ── */
+    const ICON = '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/>';
+
+    /* ── Colores de acento (todos de la paleta del index) ── */
+    const ACCENTS = [
+      { c: 'var(--teal)',   s: 'rgba(18,165,148,.14)'  },
+      { c: 'var(--coral)',  s: 'rgba(255,122,92,.15)'  },
+      { c: 'var(--amber)',  s: 'rgba(246,178,75,.18)'  },
+      { c: 'var(--blue)',   s: 'rgba(47,182,198,.15)'  },
+      { c: 'var(--teal-d)', s: 'rgba(10,116,104,.14)'  }
+    ];
+
+    /* ── 10 exámenes: Test 1 … Test 10 ── */
+    const TESTS = Array.from({ length: 10 }, (_, i) => ({ n: i + 1 }));
+
+    const list = document.getElementById('topicList');
+    list.innerHTML = TESTS.map((t, i) => {
+      const a = ACCENTS[i % ACCENTS.length];
+      // Cada tarjeta abre su simulacro. Test 1 → simulacroTest01.html, etc.
+      const file = 'simulacroTest' + String(t.n).padStart(2, '0') + '.html';
+      return `
+        <div class="topic-card" style="--accent:${a.c};--accent-soft:${a.s}"
+             onclick="abrirTest('${file}')" role="button" tabindex="0">
+          <span class="t-num">${t.n}</span>
+          <div class="t-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICON}</svg></div>
+          <div class="t-body">
+            <h3>Test ${t.n}</h3>
+            <span class="t-es">Examen completo · 40 preguntas</span>
+          </div>
+          <div class="t-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></div>
+        </div>`;
+    }).join('');
+
+    function abrirTest(file) {
+      // Abre el simulacro del test. Crea estos archivos (simulacroTest01.html … simulacroTest10.html)
+      // o dime los nombres reales y los cambio.
+      window.location.href = file;
+    }
+
+    // Accesibilidad: activar con Enter
+    list.addEventListener('keydown', e => {
+      if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('topic-card')) {
+        e.preventDefault(); e.target.click();
+      }
+    });
+  </script>
+</body>
+</html>
