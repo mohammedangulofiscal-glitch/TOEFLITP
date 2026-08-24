@@ -1040,11 +1040,14 @@
   }
 
   // Open simulador
-  function openSim(file, label) {
-    const w = window.open(file, '_blank');
-    if (!w) {
-      alert('El navegador bloqueó la ventana. Permite las ventanas emergentes para este sitio.');
-    }
+  // function openSim(file, label) {
+  //   const w = window.open(file, '_blank');
+  //   if (!w) {
+  //     alert('El navegador bloqueó la ventana. Permite las ventanas emergentes para este sitio.');
+  //   }
+  // }
+  function openSim(file, label){
+	  window.location.href = file;
   }
 
   // ── PDFs (recursos) ──
