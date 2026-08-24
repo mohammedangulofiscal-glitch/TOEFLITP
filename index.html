@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <!-- //Evita que muestre la pantalla de LOGIN por unos milisegundos al volver a inicio -->
+  <script>
+    if (sessionStorage.getItem('toefl_logged_in') === 'true') {
+      document.write('<style>#loginOverlay{display:none !important;}</style>');
+    }
+  </script>
+  <!-- resto de tu <head>: CSS, meta tags, etc. -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Simuladores TOEFL ITP · PrepITP</title>
