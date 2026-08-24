@@ -43,10 +43,10 @@
     TEST:              'TEST3',              // examen a filtrar del repositorio de tests
     CATEGORIA:         '',                       // vacío = no filtra por categoría
     TIPO:              '',                        // vacío = trae A y B (examen completo)
-    MODULO:            'Test 3',
+    MODULO:            'Complete Practice Test 3',
     NIVEL:             'TOEFL ITP',
-    SUBTITULO:         'Sección 2 · Structure &amp; Written Expression · <strong>Test 3</strong> · Examen completo · 40 preguntas',
-    SEG_POR_PREGUNTA:  40,    // segundos por pregunta
+    SUBTITULO:         'Section 2 Structure &amp; Written Expression<br>40 questions<br>25 minutes',
+    SEG_POR_PREGUNTA:  37.5,    // segundos por pregunta
     MAX_PREGUNTAS:     40,    // tope por sesión (un test completo = 40 preguntas)
     BARAJAR_OPCIONES:  false, // false = mantiene el orden original (las explicaciones citan "opción (C)", etc.)
     BARAJAR_PREGUNTAS: false  // false = respeta el orden del examen (Structure 1-15, luego Written 16-40)
@@ -348,6 +348,7 @@
 <body>
 
 <div class="hdr">
+  <button class="hdr-back" onclick="history.back()" title="Volver a la página anterior" aria-label="Volver">←</button>
   <div class="hdr-logo">✏️</div>
   <div class="hdr-text">
     <div class="h-badge">TOEFL ITP · Sección 2</div>
