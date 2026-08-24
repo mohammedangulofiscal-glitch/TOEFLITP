@@ -951,7 +951,17 @@
   (function () {
     const PIN = '1234';        // ← Cambia esta clave por la que darás a tus alumnos
     let entered = '';
-    function updateDots(error) {
+	  
+	  // Si ya inició sesión antes en esta pestaña, saltar el login
+      if (sessionStorage.getItem('toefl_logged_in') === 'true') {
+        const ov = document.getElementById('loginOverlay');
+        if (ov) ov.remove();
+        } else {
+           // Solo animar el scoreband si el login sigue siendo necesario
+           // (se hará dentro del flujo normal de pinKey)
+      }
+    
+	function updateDots(error) {
       for (let i = 0; i < 4; i++) {
         const d = document.getElementById('pd' + i);
         d.className = 'pin-dot' + (i < entered.length ? ' filled' : '') + (error ? ' error' : '');
