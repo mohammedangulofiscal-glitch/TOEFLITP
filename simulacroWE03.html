@@ -356,21 +356,6 @@
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
   .hidden { display: none !important; }
-  .opts-horizontal {
-    display: flex;
-    flex-direction: row;
-    gap: 16px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .opt-letter-only {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 60px;
-    padding: 12px 12px;
-  }  
 </style>
 </head>
 <body>
@@ -683,7 +668,6 @@ function renderQ(idx) {
 
   const opts = q.opts.map((opt, i) => {
     let cls = 'opt';
-    if (tipo === 'written') cls += ' opt-letter-only';
     if (reviewMode) {
       cls += ' locked';
       if (i === q.correct) cls += ' ok';
@@ -692,13 +676,7 @@ function renderQ(idx) {
     const ico = reviewMode
       ? (i === q.correct ? '<span class="res-ico">✅</span>' : (i === sel ? '<span class="res-ico">❌</span>' : ''))
       : '';
-
-      // Si es tipo "written", solo mostramos la letra, sin el texto de la opción
-    const textoHtml = tipo === 'written'
-      ? ''
-      : `<div class="opt-txt">${opt}</div>`;
-    
-    return `<div class="${cls}" onclick="selectOpt(${i})"><div class="opt-lt">${String.fromCharCode(65 + i)}</div>${textoHtml}${ico}</div>`;
+    return `<div class="${cls}" onclick="selectOpt(${i})"><div class="opt-lt">${String.fromCharCode(65 + i)}</div><div class="opt-txt">${opt}</div>${ico}</div>`;
   }).join('');
 
   const savedFlag = (!reviewMode && saved[idx])
@@ -715,7 +693,7 @@ function renderQ(idx) {
         <span class="q-num">P${idx + 1} / ${TOTAL}</span>
       </div>
       <div class="q-text">${q.q}</div>
-      <div class="${optsContainerCls}">${opts}</div>
+      <div class="opts">${opts}</div>
       ${savedFlag}
       ${explHTML}
     </div>`;
