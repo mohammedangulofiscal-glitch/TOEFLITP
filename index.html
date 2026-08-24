@@ -956,7 +956,7 @@
       if (sessionStorage.getItem('toefl_logged_in') === 'true') {
         const ov = document.getElementById('loginOverlay');
         if (ov) ov.remove();
-        } else {
+      } else {
            // Solo animar el scoreband si el login sigue siendo necesario
            // (se hará dentro del flujo normal de pinKey)
       }
@@ -973,7 +973,9 @@
       updateDots(false);
       if (entered.length === 4) {
         if (entered === PIN) {
-          const ov = document.getElementById('loginOverlay');
+		  sessionStorage.setItem('toefl_logged_in', 'true'); // ← ESTA es la línea que faltaba
+          
+		  const ov = document.getElementById('loginOverlay');
           ov.classList.add('hide');
           setTimeout(() => ov.remove(), 420);
           setTimeout(animateScoreband, 500);
