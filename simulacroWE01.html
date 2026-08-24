@@ -699,7 +699,7 @@ function renderQ(idx) {
       ? ''
       : `<div class="opt-txt">${opt}</div>`;
     
-    return `<div class="${cls}" onclick="selectOpt(${i})"><div class="opt-lt">${String.fromCharCode(65 + i)}</div><div class="opt-txt">${opt}</div>${ico}</div>`;
+    return `<div class="${cls}" onclick="selectOpt(${i})"><div class="opt-lt">${String.fromCharCode(65 + i)}</div>${textoHtml}${ico}</div>`;
   }).join('');
   
   // Nueva línea: clase condicional para el contenedor
