@@ -183,6 +183,43 @@
   .ex-note strong { color: var(--teal-d); }
   .ex-note em { font-style: normal; font-weight: 700; color: var(--ink); }
 
+    /* ── WRITTEN EXPRESSION (Part B) ────────────────── */
+  .ex-q .uw { display: inline; white-space: nowrap; }
+  .ex-q .uw-t {
+    text-decoration: underline;
+    text-decoration-color: var(--coral-d);
+    text-decoration-thickness: 2px;
+    font-weight: 700; color: var(--ink);
+  }
+  .ex-q .uw-l {
+    font-size: .72em; font-weight: 700;
+    color: var(--coral-d); margin-left: 1px;
+    vertical-align: super;
+  }
+
+  .opts-horizontal {
+    display: flex; flex-direction: row;
+    gap: 10px; justify-content: center; flex-wrap: wrap;
+  }
+  .opt-letter-only {
+    display: flex; align-items: center; justify-content: center;
+    min-width: 52px; padding: 10px 12px;
+    border-radius: 10px;
+    border: 1.5px solid var(--line); background: var(--surface);
+    font-family: var(--font-display); font-size: .9rem; font-weight: 700;
+    color: var(--muted);
+  }
+  .opt-letter-only .opt-txt { display: none; }
+  .opt-letter-only.correct {
+    border-color: var(--green); background: var(--green-soft); color: var(--green);
+  }
+  .opt-letter-only .check {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 16px; height: 16px; margin-left: 6px;
+    border-radius: 50%; background: var(--green); color: #fff;
+    font-size: .6rem; font-weight: 700;
+  }
+
   /* ── BOTÓN VOLVER ────────────────────────────────── */
   .footer-actions { max-width: 640px; margin: 20px auto 0; width: 100%; padding: 0 12px; }
   .btn {
@@ -266,9 +303,77 @@
         <div class="ex-note">
           Esta oración debería decir: <em>“No large natural lakes are found in the state of South Carolina.”</em>
           Debes hacer clic en la opción <strong>(D)</strong>.
+        </div>        
+      </div>
+          </div>
+
+    <div class="divider"></div>
+
+    <div class="block">
+      <div class="kicker">Section 2 Part B Directions</div>
+      <p class="directions">
+        En esta parte, cada oración tiene cuatro palabras o expresiones subrayadas y marcadas
+        con <strong>(A)</strong>, <strong>(B)</strong>, <strong>(C)</strong> y <strong>(D)</strong>.
+        Debes identificar cuál de las cuatro partes subrayadas contiene un error gramatical
+        que debería corregirse.
+      </p>
+    </div>
+
+    <div class="block">
+      <div class="kicker">Examples</div>
+
+      <!-- Ejemplo 1 -->
+      <div class="example">
+        <span class="ex-tag">Example 1</span>
+        <p class="ex-q">
+          The Wright brothers
+          <span class="uw"><span class="uw-t">was</span><span class="uw-l">(A)</span></span>
+          the first people
+          <span class="uw"><span class="uw-t">to achieve</span><span class="uw-l">(B)</span></span>
+          controlled, powered flight
+          <span class="uw"><span class="uw-t">in</span><span class="uw-l">(C)</span></span>
+          a heavier-than-air
+          <span class="uw"><span class="uw-t">machine</span><span class="uw-l">(D)</span></span>.
+        </p>
+        <div class="opts-horizontal">
+          <div class="opt-letter-only"><span class="opt-lt">A</span></div>
+          <div class="opt-letter-only correct"><span class="opt-lt">B</span><span class="check">✓</span></div>
+          <div class="opt-letter-only"><span class="opt-lt">C</span></div>
+          <div class="opt-letter-only"><span class="opt-lt">D</span></div>
+        </div>
+        <div class="ex-note">
+          El error está en <strong>(A)</strong>: el sujeto <em>"The Wright brothers"</em> es plural,
+          por lo que el verbo debe ser <em>"were"</em>, no <em>"was"</em>.
+          Debes hacer clic en la opción <strong>(A)</strong>.
         </div>
       </div>
 
+      <!-- Ejemplo 2 -->
+      <div class="example">
+        <span class="ex-tag">Example 2</span>
+        <p class="ex-q">
+          Although the museum's collection
+          <span class="uw"><span class="uw-t">is</span><span class="uw-l">(A)</span></span>
+          relatively small, it
+          <span class="uw"><span class="uw-t">contain</span><span class="uw-l">(B)</span></span>
+          several
+          <span class="uw"><span class="uw-t">extremely</span><span class="uw-l">(C)</span></span>
+          valuable works of
+          <span class="uw"><span class="uw-t">art</span><span class="uw-l">(D)</span></span>.
+        </p>
+        <div class="opts-horizontal">
+          <div class="opt-letter-only"><span class="opt-lt">A</span></div>
+          <div class="opt-letter-only correct"><span class="opt-lt">B</span><span class="check">✓</span></div>
+          <div class="opt-letter-only"><span class="opt-lt">C</span></div>
+          <div class="opt-letter-only"><span class="opt-lt">D</span></div>
+        </div>
+        <div class="ex-note">
+          El error está en <strong>(B)</strong>: el sujeto <em>"it"</em> es singular,
+          por lo que el verbo debe ser <em>"contains"</em>, no <em>"contain"</em>.
+          Debes hacer clic en la opción <strong>(B)</strong>.
+        </div>
+      </div>
+    </div>
     </div>
   </div>
 
