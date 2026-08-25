@@ -11,7 +11,6 @@
 
 <style>
   :root {
-    /* ── PALETA (heredada de index.html) ─────────────── */
     --bg:        #EAF2F0;
     --surface:   #FFFFFF;
     --surface-2: #F3F8F6;
@@ -52,7 +51,6 @@
   }
   ::selection { background: var(--teal-soft); color: var(--ink); }
 
-  /* ── HEADER ──────────────────────────────────────── */
   .hdr {
     background: linear-gradient(135deg, var(--ink) 0%, var(--teal-d) 62%, var(--teal) 100%);
     color: #fff;
@@ -80,7 +78,6 @@
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.1;
   }
 
-  /* ── MAIN ────────────────────────────────────────── */
   .main { padding: 16px 12px 40px; max-width: 640px; margin: 0 auto; width: 100%; flex: 1; }
 
   .card {
@@ -90,7 +87,6 @@
   }
   @keyframes up { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
 
-  /* ── INTRO / TÍTULO SECCIÓN ──────────────────────── */
   .intro { padding: 26px 20px 22px; text-align: center; }
   .intro .ico {
     width: 58px; height: 58px; margin: 0 auto 14px; border-radius: 16px;
@@ -113,7 +109,6 @@
 
   .divider { height: 1px; background: var(--line); margin: 0 20px; }
 
-  /* ── BLOQUE DE DIRECTIONS ────────────────────────── */
   .block { padding: 20px 20px 4px; }
   .block:last-of-type { padding-bottom: 22px; }
 
@@ -132,7 +127,6 @@
   }
   .directions strong { color: var(--ink); font-weight: 700; }
 
-  /* ── EJEMPLO ─────────────────────────────────────── */
   .example {
     margin-top: 16px;
     background: var(--surface-2);
@@ -149,9 +143,47 @@
   }
   .ex-q {
     font-size: .95rem; font-weight: 600; color: var(--ink);
-    line-height: 1.6; margin-bottom: 13px;
+    line-height: 2.4; /* Aumentado para dar espacio a la nueva línea */
+    margin-bottom: 13px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 2px;
   }
   .ex-q .blank { color: var(--coral-d); font-weight: 700; letter-spacing: .04em; }
+
+  /* ── ESTILO PARA WRITTEN EXPRESSION (letras DEBAJO) ── */
+  .ex-q .uw {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: top;
+    margin: 0 1px;
+  }
+  
+  .ex-q .uw-t {
+    display: inline-block;
+    text-decoration: underline;
+    text-decoration-color: var(--coral-d);
+    text-decoration-thickness: 2.5px;
+    text-underline-offset: 3px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+  
+  .ex-q .uw-l {
+    display: block;
+    font-size: .68rem;
+    font-weight: 700;
+    color: var(--coral-d);
+    letter-spacing: .02em;
+    margin-top: 1px;
+    font-family: var(--font-display);
+    line-height: 1.2;
+    text-align: center;
+    width: 100%;
+  }
 
   .ex-opts { display: flex; flex-direction: column; gap: 7px; }
   .ex-opt {
@@ -183,23 +215,10 @@
   .ex-note strong { color: var(--teal-d); }
   .ex-note em { font-style: normal; font-weight: 700; color: var(--ink); }
 
-    /* ── WRITTEN EXPRESSION (Part B) ────────────────── */
-  .ex-q .uw { display: inline; white-space: nowrap; }
-  .ex-q .uw-t {
-    text-decoration: underline;
-    text-decoration-color: var(--coral-d);
-    text-decoration-thickness: 2px;
-    font-weight: 700; color: var(--ink);
-  }
-  .ex-q .uw-l {
-    font-size: .72em; font-weight: 700;
-    color: var(--coral-d); margin-left: 1px;
-    vertical-align: super;
-  }
-
   .opts-horizontal {
     display: flex; flex-direction: row;
     gap: 10px; justify-content: center; flex-wrap: wrap;
+    margin-top: 8px;
   }
   .opt-letter-only {
     display: flex; align-items: center; justify-content: center;
@@ -220,7 +239,6 @@
     font-size: .6rem; font-weight: 700;
   }
 
-  /* ── BOTÓN VOLVER ────────────────────────────────── */
   .footer-actions { max-width: 640px; margin: 20px auto 0; width: 100%; padding: 0 12px; }
   .btn {
     display: flex; align-items: center; justify-content: center; gap: 9px;
@@ -305,7 +323,7 @@
           Debes hacer clic en la opción <strong>(D)</strong>.
         </div>        
       </div>
-          </div>
+    </div>
 
     <div class="divider"></div>
 
@@ -322,18 +340,30 @@
     <div class="block">
       <div class="kicker">Examples</div>
 
-      <!-- Ejemplo 1 -->
+      <!-- Ejemplo 1 - Letras DEBAJO y centradas -->
       <div class="example">
         <span class="ex-tag">Example 1</span>
         <p class="ex-q">
           The Wright brothers
-          <span class="uw"><span class="uw-t">was</span><span class="uw-l">(A)</span></span>
+          <span class="uw">
+            <span class="uw-t">was</span>
+            <span class="uw-l">(A)</span>
+          </span>
           the first people
-          <span class="uw"><span class="uw-t">to achieve</span><span class="uw-l">(B)</span></span>
+          <span class="uw">
+            <span class="uw-t">to achieve</span>
+            <span class="uw-l">(B)</span>
+          </span>
           controlled, powered flight
-          <span class="uw"><span class="uw-t">in</span><span class="uw-l">(C)</span></span>
+          <span class="uw">
+            <span class="uw-t">in</span>
+            <span class="uw-l">(C)</span>
+          </span>
           a heavier-than-air
-          <span class="uw"><span class="uw-t">machine</span><span class="uw-l">(D)</span></span>.
+          <span class="uw">
+            <span class="uw-t">machine</span>
+            <span class="uw-l">(D)</span>
+          </span>.
         </p>
         <div class="opts-horizontal">
           <div class="opt-letter-only correct"><span class="opt-lt">A</span></div>
@@ -348,22 +378,34 @@
         </div>
       </div>
 
-      <!-- Ejemplo 2 -->
+      <!-- Ejemplo 2 - Letras DEBAJO y centradas -->
       <div class="example">
         <span class="ex-tag">Example 2</span>
         <p class="ex-q">
           Although the museum's collection
-          <span class="uw"><span class="uw-t">is</span><span class="uw-l">(A)</span></span>
+          <span class="uw">
+            <span class="uw-t">is</span>
+            <span class="uw-l">(A)</span>
+          </span>
           relatively small, it
-          <span class="uw"><span class="uw-t">contain</span><span class="uw-l">(B)</span></span>
+          <span class="uw">
+            <span class="uw-t">contain</span>
+            <span class="uw-l">(B)</span>
+          </span>
           several
-          <span class="uw"><span class="uw-t">extremely</span><span class="uw-l">(C)</span></span>
+          <span class="uw">
+            <span class="uw-t">extremely</span>
+            <span class="uw-l">(C)</span>
+          </span>
           valuable works of
-          <span class="uw"><span class="uw-t">art</span><span class="uw-l">(D)</span></span>.
+          <span class="uw">
+            <span class="uw-t">art</span>
+            <span class="uw-l">(D)</span>
+          </span>.
         </p>
         <div class="opts-horizontal">
           <div class="opt-letter-only"><span class="opt-lt">A</span></div>
-          <div class="opt-letter-only correct"><span class="opt-lt">B</span><span class="check">✓</span></div>
+          <div class="opt-letter-only correct"><span class="opt-lt">B</span></div>
           <div class="opt-letter-only"><span class="opt-lt">C</span></div>
           <div class="opt-letter-only"><span class="opt-lt">D</span></div>
         </div>
@@ -374,7 +416,7 @@
         </div>
       </div>
     </div>
-    </div>
+  </div>
   </div>
 
   <div class="footer-actions">
