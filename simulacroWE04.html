@@ -391,6 +391,7 @@
     <div class="t-lbl">Tiempo</div>
     <div class="timer" id="timer">--:--</div>
   </div>
+  <button id="timerToggleBtn" onclick="toggleTimer()">⏸️ Pausar</button>
 </div>
 <div class="prog-wrap"><div class="prog-bar" id="progBar" style="width:0%"></div></div>
 
@@ -477,7 +478,7 @@ const DEMO = [
 //  ESTADO
 // ═══════════════════════════════════════════════════════════
 let Q = [], TOTAL = 0;
-let answers, saved, current, secondsLeft, timerInterval, reviewMode = false;
+let answers, saved, current, secondsLeft, timerInterval, timerPaused = false, reviewMode = false;
 const LS_KEY = 'toefl_itp_s2_nivel1_progreso';
 
 function _shuffle(arr) {
@@ -851,10 +852,18 @@ function startTimer() {
   };
   paint();
   timerInterval = setInterval(() => {
+    if (timerPaused) return;  // ← si está pausado, no descuenta ni repinta
     secondsLeft--;
     paint();
     if (secondsLeft <= 0) { clearInterval(timerInterval); showResults(); }
   }, 1000);
+}
+function toggleTimer() {
+  timerPaused = !timerPaused;
+  const btn = document.getElementById('timerToggleBtn');
+  if (btn) {
+    btn.textContent = timerPaused ? '▶️ Reanudar' : '⏸️ Pausar';
+  }
 }
 
 // ═══════════════════════════════════════════════════════════
