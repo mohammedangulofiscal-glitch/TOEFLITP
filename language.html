@@ -88,13 +88,25 @@
   @keyframes up { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
 
   .intro { padding: 26px 20px 22px; text-align: center; }
-  .intro .ico {
-    width: 58px; height: 58px; margin: 0 auto 14px; border-radius: 16px;
-    background: linear-gradient(140deg, var(--teal) 0%, var(--teal-d) 100%);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.6rem; color: #fff;
-    box-shadow: 0 10px 24px rgba(18,165,148,.3);
+  
+  /* ── LOGO (3 VECES MÁS GRANDE QUE EL ÍCONO ANTERIOR) ── */
+  .intro .logo-container {
+    width: 174px;  /* 58px × 3 = 174px */
+    height: 174px; /* 58px × 3 = 174px */
+    margin: 0 auto 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
+  
+  .intro .logo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    /* La transparencia del PNG hará que se integre naturalmente */
+  }
+
   .intro .eyebrow {
     display: inline-flex; align-items: center; gap: 7px;
     font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
@@ -143,7 +155,7 @@
   }
   .ex-q {
     font-size: .95rem; font-weight: 600; color: var(--ink);
-    line-height: 2.4; /* Aumentado para dar espacio a la nueva línea */
+    line-height: 2.4;
     margin-bottom: 13px;
     display: flex;
     flex-wrap: wrap;
@@ -271,7 +283,16 @@
   <div class="card">
 
     <div class="intro">
-      <div class="ico">✏️</div>
+      <!-- REEMPLAZO DEL ÍCONO DEL LÁPIZ POR LOGO PNG (3 VECES MÁS GRANDE) -->
+      <div class="logo-container">
+        <img src="tu-logo.png" alt="Logo" />
+      </div>
+      <!-- 
+        INSTRUCCIONES: 
+        1. Reemplaza "tu-logo.png" con la ruta real de tu archivo PNG
+        2. Asegúrate de que tu PNG tenga fondo transparente
+        3. El logo aparecerá 3 veces más grande que el ícono anterior (174px × 174px)
+      -->
       <div class="eyebrow"><span>Structure &amp; Written Expression</span></div>
       <h2>Language Structure</h2>
       <p class="sub">Lee con atención las instrucciones y los ejemplos antes de comenzar.</p>
