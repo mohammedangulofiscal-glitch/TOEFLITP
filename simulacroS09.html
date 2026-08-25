@@ -41,10 +41,10 @@
     REPO_A_URL:        'https://raw.githubusercontent.com/mohammedangulofiscal-glitch/RepositoriosTOEFL/main/TOEFL_Type_A.json',
     CATEGORIA:         'Verb Problems',         // tema a filtrar del repositorio
     TIPO:              'A',                      // 'A' = completar oración; null = no filtrar por tipo
-    MODULO:            'Structure · Verb Problems',
+    MODULO:            'Verb Problems',
     NIVEL:             'TOEFL ITP',
-    SUBTITULO:         'Sección 2 · Gramática y estructura · Tema: <strong>Verb Problems</strong> · A · B · C · D',
-    SEG_POR_PREGUNTA:  40,    // segundos por pregunta
+    SUBTITULO:         'Section 2 Structure · Options: A · B · C · D',
+    SEG_POR_PREGUNTA:  37.5,    // segundos por pregunta
     MAX_PREGUNTAS:     10,    // tope de preguntas por sesión (nunca pasa de 20; usa todas si hay menos)
     BARAJAR_OPCIONES:  false  // false = mantiene el orden original (las explicaciones citan "opción (C)", etc.)
   };
@@ -599,8 +599,8 @@ function inicializarInicio() {
 
   document.getElementById('distGrid').innerHTML = `
     <div class="dist-box">
-      <h4>📝 Structure</h4>
-      <div class="dist-row"><span>Completar la oración</span><span class="n">${nStructure}</span></div>
+      <h4>📝 Consejo</h4>
+      <div class="dist-row"><span>Toma en cuenta todos los verbos presentes</span><span class="n">${nStructure}</span></div>
     </div>`;
 
   const totalSeg = Math.ceil((CONFIG.SEG_POR_PREGUNTA * TOTAL) / 60) * 60;
