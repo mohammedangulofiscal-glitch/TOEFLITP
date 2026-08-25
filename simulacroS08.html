@@ -776,7 +776,7 @@ function startTimer() {
     el.className = 'timer' + (secondsLeft <= 60 ? ' danger' : secondsLeft <= 300 ? ' warn' : '');
   };
   paint();
-    timerInterval = setInterval(() => {
+  timerInterval = setInterval(() => {
     if (timerPaused) return;  // ← si está pausado, no descuenta ni repinta
     secondsLeft--;
     paint();
