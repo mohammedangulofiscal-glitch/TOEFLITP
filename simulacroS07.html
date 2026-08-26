@@ -954,7 +954,7 @@ function restaurarNavBar() {
 //  PERSISTENCIA (best-effort, no rompe si no hay localStorage)
 // ═══════════════════════════════════════════════════════════
 function persistir() {
-  try { localStorage.setItem(LS_KEY, JSON.stringify({ answers, saved, secondsLeft, ts: Date.now() })); } catch (e) {}
+  try { localStorage.setItem(LS_KEY, JSON.stringify({ answers, saved, ts: Date.now() })); } catch (e) {} //removed secondsLeft after saved
 }
 function restaurarProgreso() {
   try {
@@ -964,7 +964,7 @@ function restaurarProgreso() {
     if (d && Array.isArray(d.answers) && d.answers.length === TOTAL) {
       answers = d.answers;
       saved   = Array.isArray(d.saved) && d.saved.length === TOTAL ? d.saved : new Array(TOTAL).fill(false);
-      if (typeof d.secondsLeft === 'number' && d.secondsLeft > 0) secondsLeft = d.secondsLeft;
+      //if (typeof d.secondsLeft === 'number' && d.secondsLeft > 0) secondsLeft = d.secondsLeft; //❌ ELIMINADO: ya NO restauramos secondsLeft desde localStorage. El tiempo siempre comienza desde cero
       if (answers.some(a => a !== null)) toast('Progreso anterior restaurado');
     }
   } catch (e) {}
