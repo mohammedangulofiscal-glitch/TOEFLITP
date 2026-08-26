@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Structure and Written Expression del TOEFL ITP (Nivel 1)</title>
+
+<!-- ═══════════════════════════════════════════════════════
+  CONFIGURACIÓN DEL SIMULACRO
+  Este simulacro LEE DIRECTAMENTE del "Repositorio A" (JSON) publicado
+  en GitHub (raw) y toma SOLO las preguntas cuya categoría coincida con
+  CONFIG.CATEGORIA (aquí: "Prepositional Phrases").
+
+  1) Sube tu JSON del Repositorio A a GitHub (p. ej. el archivo
+     TOEFL_Type_A_Questions_3.json).
+  2) Copia su URL RAW (botón "Raw" en GitHub) y pégala en REPO_A_URL.
+     Formato: https://raw.githubusercontent.com/USUARIO/REPO/RAMA/ruta/archivo.json
+
+  El JSON esperado tiene esta forma (la que ya generamos):
+      {
+        "questions": [
+          {
+            "id": "A0168",
+            "type": "A",
+            "category": "Independent Clauses",
+            "question": "Red Ribbon Week, ... __________.",
+            "options": [ {"label":"A","text":"..."}, ... ],
+            "correct_index": 2,
+            "explanation": "..."
+          }
+        ]
+      }
+
+  Cada sesión BARAJA el orden de las preguntas (aleatorio) para que no
+  salgan siempre iguales. Mientras el JSON remoto no exista, se muestra
+  un DEMO embebido.
+════════════════════════════════════════════════════════ -->
+<script>
+  const CONFIG = {
+    // ⬇️  PEGA AQUÍ la URL RAW de tu JSON del Repositorio A en GitHub
+    REPO_A_URL:        'https://raw.githubusercontent.com/mohammedangulofiscal-glitch/RepositoriosTOEFL/main/TOEFL_Type_A.json',
+    CATEGORIA:         'Prepositions',  // tema a filtrar del repositorio
+    TIPO:              'A',                      // 'A' = completar oración; null = no filtrar por tipo
+    MODULO:            'Structure · Prepositional Phrases',
+    NIVEL:             'TOEFL ITP',
+    SUBTITULO:         'Sección 2 · Gramática y estructura · Tema: <strong>Prepositional Phrases</strong> · A · B · C · D',
+    SEG_POR_PREGUNTA:  40,    // segundos por pregunta
+    MAX_PREGUNTAS:     10,    // tope de preguntas por sesión (nunca pasa de 20; usa todas si hay menos)
+    BARAJAR_OPCIONES:  false  // false = mantiene el orden original (las explicaciones citan "opción (C)", etc.)
+  };
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    /* ── PALETA (heredada de index.html) ─────────────── */
+    --bg:        #EAF2F0;
+    --surface:   #FFFFFF;
+    --surface-2: #F3F8F6;
+    --ink:       #0D3B3A;
+    --teal:      #12A594;
+    --teal-d:    #0A7468;
+    --teal-soft: #D8EFEB;
+    --coral:     #FF7A5C;
+    --coral-d:   #E85E3F;
+    --amber:     #F6B24B;
+    --text:      #143230;
+    --muted:     #64827F;
+    --line:      #DFEBE8;
+    --line-2:    #E9F1EF;
+    --shadow:    rgba(13,59,58,.09);
+    --shadow-lg: rgba(13,59,58,.14);
+    /* estados */
+    --green:      #12876B;
+    --green-soft: #DCF3EC;
+    --red:        #E0503A;
+    --red-soft:   #FBE6E0;
+
+    --r:  18px;
+    --rs: 13px;
+
+    --font-display: 'Bricolage Grotesque', 'Plus Jakarta Sans', sans-serif;
+    --font-body:    'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--teal-soft); color: var(--ink); }
+
+  /* ── HEADER ──────────────────────────────────────── */
+  .hdr {
+    background: linear-gradient(135deg, var(--ink) 0%, var(--teal-d) 62%, var(--teal) 100%);
+    color: #fff;
+    padding: 11px 15px;
+    display: flex; align-items: center; gap: 11px;
+    box-shadow: 0 4px 18px rgba(13,59,58,.28);
+    position: sticky; top: 0; z-index: 200;
+  }
+  .hdr-logo {
+    width: 38px; height: 38px; flex-shrink: 0;
+    border-radius: 11px;
+    background: rgba(255,255,255,.14);
+    border: 1px solid rgba(255,255,255,.18);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.15rem;
+  }
+  .hdr-back {
+    width: 30px; height: 30px; flex-shrink: 0;
+    border-radius: 9px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.14);
+    color: rgba(255,255,255,.72);
+    font-size: 1.05rem; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; text-decoration: none;
+    transition: background .18s ease, color .18s ease, transform .12s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .hdr-back:hover  { background: rgba(255,255,255,.18); color: #fff; }
+  .hdr-back:active { transform: scale(.92); }
+  .hdr-text { flex: 1; min-width: 0; }
+  .hdr .h-badge {
+    font-size: .54rem; font-weight: 700; letter-spacing: .16em;
+    text-transform: uppercase; color: rgba(255,255,255,.72); margin-bottom: 2px;
+  }
+  .hdr h1 {
+    font-family: var(--font-display);
+    font-size: .9rem; font-weight: 700;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.1;
+  }
+  /* Grupo derecho: tiempo + boton de pausa como una sola unidad */
+  .hdr-right {
+    flex-shrink: 0;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hdr-clock { text-align: right; line-height: 1; }
+  .t-lbl { font-size: .5rem; opacity: .7; text-transform: uppercase; letter-spacing: .12em; margin-bottom: 2px; }
+  .timer {
+    font-family: var(--font-display);
+    font-size: 1.32rem; font-weight: 800;
+    font-variant-numeric: tabular-nums; letter-spacing: .02em; line-height: 1;
+  }
+  .timer.warn   { color: var(--amber); animation: blink 1.2s ease infinite; }
+  .timer.danger { color: #FFB4A2; animation: blink .55s ease infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.45} }
+
+  /* Boton de pausa: mismo lenguaje de "vidrio" que el resto del header */
+  .hdr-pause {
+    flex-shrink: 0;
+    display: inline-flex; align-items: center; gap: 6px;
+    height: 34px; padding: 0 13px;
+    border-radius: 10px;
+    background: rgba(255,255,255,.14);
+    border: 1px solid rgba(255,255,255,.22);
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: .72rem; font-weight: 700; letter-spacing: .01em; line-height: 1;
+    cursor: pointer;
+    transition: background .18s ease, border-color .18s ease, transform .12s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .hdr-pause:hover  { background: rgba(255,255,255,.22); border-color: rgba(255,255,255,.34); }
+  .hdr-pause:active { transform: scale(.94); }
+  .hdr-pause .ico { font-size: .8rem; line-height: 1; }
+  /* Estado pausado: acento ambar para que se note de un vistazo */
+  .hdr-pause.paused {
+    background: rgba(246,178,75,.24);
+    border-color: rgba(246,178,75,.55);
+    color: #FFE3B0;
+  }
+  .hdr-pause.paused:hover { background: rgba(246,178,75,.32); }
+
+  /* En pantallas muy angostas oculta el texto y deja solo el icono */
+  @media (max-width: 400px) {
+    .hdr-pause { padding: 0; width: 34px; justify-content: center; }
+    .hdr-pause .lbl { display: none; }
+  }
+
+  .prog-wrap { background: rgba(13,59,58,.12); height: 4px; }
+  .prog-bar  { height: 4px; background: var(--amber); transition: width .5s ease; box-shadow: 0 0 8px rgba(246,178,75,.6); }
+
+  /* ── DEMO NOTICE ─────────────────────────────────── */
+  .demo-note {
+    max-width: 600px; margin: 12px auto 0; padding: 0 12px;
+  }
+  .demo-note .box {
+    background: #FFF6E6; border: 1px solid #F3D89A;
+    border-radius: 12px; padding: 10px 13px;
+    font-size: .74rem; color: #8A5A12; line-height: 1.45; font-weight: 500;
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+
+  /* ── MAIN ────────────────────────────────────────── */
+  .main { padding: 14px 12px 96px; max-width: 600px; margin: 0 auto; }
+
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); box-shadow: 0 10px 30px var(--shadow); }
+
+  /* ── LOADING ─────────────────────────────────────── */
+  .loading { padding: 44px 16px; text-align: center; margin-top: 14px; }
+  .spinner { width: 40px; height: 40px; border: 4px solid var(--line); border-top-color: var(--teal); border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto 16px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading p { color: var(--muted); font-size: .85rem; font-weight: 500; }
+
+  /* ── START ───────────────────────────────────────── */
+  .start { padding: 26px 18px; text-align: center; margin-top: 14px; animation: up .5s ease; }
+  .start .ico {
+    width: 58px; height: 58px; margin: 0 auto 14px; border-radius: 16px;
+    background: linear-gradient(140deg, var(--teal) 0%, var(--teal-d) 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem; color: #fff;
+    box-shadow: 0 10px 24px rgba(18,165,148,.3);
+  }
+  .start .eyebrow {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--teal-d); background: var(--teal-soft);
+    padding: 5px 12px; border-radius: 20px; margin-bottom: 12px;
+  }
+  .start h2 { font-family: var(--font-display); font-size: 1.4rem; color: var(--ink); margin-bottom: 6px; line-height: 1.15; }
+  .start .sub { color: var(--muted); font-size: .82rem; margin-bottom: 18px; line-height: 1.55; font-weight: 500; }
+  .dist-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 16px 0; text-align: left; }
+  .dist-box { background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--rs); padding: 13px 14px; }
+  .dist-box h4 { font-size: .62rem; text-transform: uppercase; letter-spacing: .06em; color: var(--teal-d); font-weight: 700; margin-bottom: 8px; }
+  .dist-row { display: flex; justify-content: space-between; font-size: .78rem; color: var(--text); padding: 4px 0; border-bottom: 1px dashed var(--line); font-weight: 500; }
+  .dist-row:last-child { border: none; }
+  .dist-row .n { font-weight: 700; color: var(--teal-d); }
+  .info-chips { display: flex; justify-content: center; gap: 8px; margin: 16px 0 22px; flex-wrap: wrap; }
+  .chip { background: var(--teal-soft); color: var(--teal-d); border-radius: 20px; padding: 6px 13px; font-size: .74rem; font-weight: 700; display: flex; align-items: center; gap: 5px; }
+
+  /* ── Q-CARD ──────────────────────────────────────── */
+  .q-card { padding: 17px 15px; margin-top: 8px; animation: up .28s ease; }
+  @keyframes up { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+  .q-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 13px; gap: 8px; }
+  .q-badge { padding: 4px 11px; border-radius: 20px; font-size: .6rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+  .badge-structure { background: var(--teal-soft); color: var(--teal-d); }
+  .badge-written   { background: #FCEBDF; color: var(--coral-d); }
+  .q-num { font-size: .68rem; color: var(--muted); font-weight: 600; flex-shrink: 0; white-space: nowrap; }
+  .q-text { font-weight: 600; font-size: .95rem; margin-bottom: 15px; color: var(--ink); line-height: 1.65; }
+  .q-text u { text-decoration: underline; text-decoration-color: var(--teal); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+  .q-hint { font-size: .68rem; color: var(--muted); text-align: center; padding: 7px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; margin-bottom: 10px; font-weight: 600; }
+
+  /* ── OPTIONS ─────────────────────────────────────── */
+  .opts { display: flex; flex-direction: column; gap: 9px; }
+  .opt {
+    padding: 13px 13px; border: 2px solid var(--line); border-radius: var(--rs);
+    cursor: pointer; display: flex; align-items: center; gap: 11px;
+    transition: border-color .13s, background .13s; font-size: .86rem; line-height: 1.5;
+    min-height: 50px; background: var(--surface); -webkit-tap-highlight-color: transparent;
+  }
+  .opt:active:not(.locked) { border-color: var(--teal); background: var(--teal-soft); }
+  .opt.sel  { border-color: var(--teal); background: var(--teal-soft); }
+  .opt.ok   { border-color: var(--green); background: var(--green-soft); }
+  .opt.bad  { border-color: var(--red);   background: var(--red-soft); }
+  .opt.locked { cursor: default; }
+  .opt-lt {
+    min-width: 28px; height: 28px; border-radius: 8px; background: var(--surface-2);
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-size: .82rem; font-weight: 700; color: var(--muted);
+    flex-shrink: 0; transition: background .13s, color .13s, border-color .13s;
+  }
+  .opt.sel .opt-lt { background: var(--teal); color: #fff; border-color: var(--teal); }
+  .opt.ok  .opt-lt { background: var(--green); color: #fff; border-color: var(--green); }
+  .opt.bad .opt-lt { background: var(--red); color: #fff; border-color: var(--red); }
+  .opt-txt { flex: 1; color: var(--text); }
+  .res-ico { margin-left: auto; flex-shrink: 0; font-size: .95rem; }
+
+  .saved-flag { display: inline-flex; align-items: center; gap: 5px; font-size: .68rem; font-weight: 700; color: var(--green); background: var(--green-soft); border-radius: 20px; padding: 4px 10px; margin-top: 12px; }
+
+  /* ── EXPLANATION (revisión) ──────────────────────── */
+  .expl { margin-top: 14px; padding: 12px 13px; background: var(--teal-soft); border-radius: var(--rs); border-left: 4px solid var(--teal); font-size: .8rem; line-height: 1.6; color: var(--ink); }
+  .expl strong { color: var(--teal-d); }
+
+  /* ── DOTS ────────────────────────────────────────── */
+  .dots { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 11px; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--line); transition: background .2s, box-shadow .2s; flex-shrink: 0; }
+  .dot.done { background: var(--teal); }
+  .dot.cur  { background: var(--amber); box-shadow: 0 0 0 3px rgba(246,178,75,.28); }
+  .dot.hit  { background: var(--green); }
+  .dot.miss { background: var(--red); }
+
+  /* ── BUTTONS ─────────────────────────────────────── */
+  .btn {
+    padding: 11px 16px; border-radius: var(--rs); border: none;
+    font-family: var(--font-body); font-weight: 700; font-size: .84rem;
+    cursor: pointer; transition: transform .12s, background .14s, box-shadow .16s; min-height: 46px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn:active { transform: scale(.96); }
+  .btn-p { background: linear-gradient(135deg, var(--teal) 0%, var(--teal-d) 100%); color: #fff; box-shadow: 0 6px 16px rgba(18,165,148,.28); }
+  .btn-p:active { box-shadow: 0 3px 10px rgba(18,165,148,.24); }
+  .btn-s { background: var(--surface); color: var(--ink); border: 1px solid var(--line); }
+  .btn-s:active { background: var(--surface-2); }
+  .btn-save { background: var(--ink); color: #fff; }
+  .btn-save:active { background: #0a2e2d; }
+  .btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--line); }
+  .btn-lg { padding: 15px 28px; font-size: .92rem; border-radius: 14px; width: 100%; }
+  .btn:disabled { opacity: .4; cursor: default; }
+
+  /* ── BOTTOM NAV (Atrás · Guardar · Seguir) ───────── */
+  .nav {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+    background: rgba(255,255,255,.94);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid var(--line);
+    box-shadow: 0 -4px 18px var(--shadow);
+    padding: 9px 12px; padding-bottom: max(9px, env(safe-area-inset-bottom));
+  }
+  .nav-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .nav-info .cur { font-size: .74rem; color: var(--muted); font-weight: 600; }
+  .nav-info .cur strong { color: var(--ink); }
+  .nav-info .ans { font-size: .72rem; color: var(--muted); font-weight: 600; }
+  .nav-info .ans strong { color: var(--teal-d); }
+  .nav-btns { display: flex; align-items: stretch; gap: 8px; }
+  .nav-btns > .btn { flex: 1; }
+  .nav-btns > .nav-move { display: flex; gap: 8px; flex: 2; }
+  .nav-btns > .nav-move > .btn { flex: 1; }
+
+  /* ── FINALIZE (revisar antes de enviar) ──────────── */
+  .fin { padding: 24px 18px; text-align: center; margin-top: 14px; animation: up .4s ease; }
+  .fin h2 { font-family: var(--font-display); font-size: 1.35rem; color: var(--ink); margin-bottom: 6px; }
+  .fin .sub { font-size: .82rem; color: var(--muted); margin-bottom: 18px; font-weight: 500; line-height: 1.5; }
+  .fin-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
+  .fin-stat { border-radius: var(--rs); padding: 14px 10px; border: 1px solid var(--line); }
+  .fin-stat.ok  { background: var(--teal-soft); }
+  .fin-stat.miss{ background: #FFF6E6; border-color: #F3D89A; }
+  .fin-stat .num { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; line-height: 1; }
+  .fin-stat.ok .num  { color: var(--teal-d); }
+  .fin-stat.miss .num{ color: #C9871B; }
+  .fin-stat .lab { font-size: .64rem; font-weight: 600; color: var(--muted); margin-top: 5px; text-transform: uppercase; letter-spacing: .04em; }
+  .grid-label { font-size: .64rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); text-align: left; margin-bottom: 9px; }
+  .q-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 7px; margin-bottom: 8px; }
+  .q-chip {
+    aspect-ratio: 1; border-radius: 9px; border: 1.5px solid var(--line);
+    background: var(--surface); color: var(--muted);
+    font-size: .74rem; font-weight: 700; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .1s; -webkit-tap-highlight-color: transparent;
+  }
+  .q-chip:active { transform: scale(.9); }
+  .q-chip.answered { background: var(--teal); border-color: var(--teal); color: #fff; }
+  .q-chip.missing  { background: #FFF6E6; border-color: #F3D89A; color: #C9871B; }
+  .fin-legend { display: flex; justify-content: center; gap: 16px; margin: 12px 0 18px; font-size: .68rem; color: var(--muted); font-weight: 600; }
+  .lg-dot { display: inline-block; width: 11px; height: 11px; border-radius: 4px; margin-right: 5px; vertical-align: -1px; }
+  .missing-note { background: #FFF6E6; border: 1px solid #F3D89A; border-radius: 12px; padding: 11px 13px; font-size: .76rem; color: #8A5A12; line-height: 1.5; margin-bottom: 16px; font-weight: 500; text-align: left; }
+  .fin-actions { display: flex; flex-direction: column; gap: 10px; }
+
+  /* ── RESULTS ─────────────────────────────────────── */
+  .res { padding: 28px 18px; text-align: center; margin-top: 14px; animation: up .5s ease; }
+  .score-ring {
+    width: 116px; height: 116px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;
+    font-family: var(--font-display); font-size: 1.95rem; font-weight: 800; color: #fff;
+    box-shadow: 0 12px 34px var(--shadow-lg);
+  }
+  .res h2 { font-family: var(--font-display); font-size: 1.4rem; color: var(--ink); margin-bottom: 6px; }
+  .res-big { font-size: .9rem; color: var(--muted); margin-bottom: 18px; font-weight: 500; }
+  .res-big strong { color: var(--ink); }
+  .brkdn { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0 20px; text-align: left; }
+  .bk-item { padding: 12px 13px; border-radius: var(--rs); border: 1px solid var(--line); background: var(--surface-2); }
+  .bk-lbl { font-size: .62rem; text-transform: uppercase; letter-spacing: .05em; font-weight: 700; margin-bottom: 4px; color: var(--teal-d); }
+  .bk-sc { font-size: 1rem; font-weight: 800; color: var(--ink); font-family: var(--font-display); }
+  .bk-sc small { font-weight: 500; color: var(--muted); font-size: .72rem; }
+  .bk-bar { height: 5px; background: var(--line); border-radius: 3px; margin-top: 7px; overflow: hidden; }
+  .bk-fill { height: 5px; border-radius: 3px; background: var(--teal); transition: width 1.1s ease; }
+
+  /* ── TOAST ───────────────────────────────────────── */
+  .toast {
+    position: fixed; left: 50%; bottom: 92px; transform: translateX(-50%) translateY(14px);
+    background: var(--ink); color: #fff; font-size: .8rem; font-weight: 600;
+    padding: 10px 18px; border-radius: 22px; z-index: 400;
+    box-shadow: 0 10px 30px var(--shadow-lg); opacity: 0; pointer-events: none;
+    transition: opacity .22s, transform .22s; white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <button class="hdr-back" onclick="history.back()" title="Volver a la página anterior" aria-label="Volver">←</button>
+  <div class="hdr-logo">✏️</div>
+  <div class="hdr-text">
+    <div class="h-badge">TOEFL ITP · Sección 2</div>
+    <h1 id="hdrTitle">Cargando simulacro…</h1>
+  </div>
+  <div class="hdr-right">
+    <div class="hdr-clock">
+      <div class="t-lbl">Tiempo</div>
+      <div class="timer" id="timer">--:--</div>
+    </div>
+    <button class="hdr-pause" id="timerToggleBtn" onclick="toggleTimer()" aria-label="Pausar temporizador">
+      <span class="ico" id="timerToggleIco">⏸</span><span class="lbl" id="timerToggleLbl">Pausar</span>
+    </button>
+  </div>
+</div>
+<div class="prog-wrap"><div class="prog-bar" id="progBar" style="width:0%"></div></div>
+
+<div id="demoNote" class="demo-note hidden">
+  <div class="box"><span>⚠️</span><span>No se pudo leer el <strong>Repositorio A</strong> (tema «Prepositional Phrases»). Estás viendo <strong>preguntas de demostración</strong>. Sube tu <code>.json</code> a GitHub y pega su URL RAW en <code>REPO_A_URL</code>.</span></div>
+</div>
+
+<div class="main">
+  <div id="loadingScreen" class="card loading">
+    <div class="spinner"></div>
+    <p>Cargando banco de preguntas…</p>
+  </div>
+
+  <div id="startScreen" class="card start hidden">
+    <div class="ico">✏️</div>
+    <div class="eyebrow"><span>Nivel 1</span></div>
+    <h2 id="startTitle"></h2>
+    <p class="sub" id="startSub"></p>
+    <div class="dist-grid" id="distGrid"></div>
+    <div class="info-chips" id="infoChips"></div>
+    <button class="btn btn-p btn-lg" onclick="startExam()">Comenzar simulacro →</button>
+  </div>
+
+  <div id="examScreen" class="hidden"></div>
+  <div id="finalizeScreen" class="hidden"></div>
+  <div id="resultsScreen" class="hidden"></div>
+</div>
+
+<!-- BOTTOM NAV: Atrás · Guardar · Seguir -->
+<div class="nav hidden" id="navBar">
+  <div class="nav-info">
+    <div class="cur">Pregunta <strong id="navCur">1</strong> de <strong id="navTotal">?</strong></div>
+    <div class="ans">Contestadas: <strong id="navAns">0</strong></div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn btn-save" id="btnSave" onclick="guardar()">💾 Guardar</button>
+    <div class="nav-move">
+      <button class="btn btn-s" id="btnBack" onclick="atras()">← Atrás</button>
+      <button class="btn btn-p" id="btnNext" onclick="seguir()">Seguir →</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+//  BANCO DEMO (fallback mientras no exista el banco remoto)
+// ═══════════════════════════════════════════════════════════
+const DEMO = [
+  { tipo:"structure", q:"___ the heavy rain, the outdoor ceremony continued as planned.",
+    opts:["Despite","Although","Because","However"], correct:0,
+    expl:"«Despite» + sustantivo introduce contraste. «Although» exigiría una cláusula con sujeto y verbo." },
+  { tipo:"structure", q:"The committee, together with its advisors, ___ meeting this afternoon.",
+    opts:["are","were","is","have"], correct:2,
+    expl:"El sujeto es «The committee» (singular). «together with its advisors» no cambia el número del verbo." },
+  { tipo:"structure", q:"Not until the results were published ___ the extent of the error.",
+    opts:["we realized","did we realize","we did realize","realizing"], correct:1,
+    expl:"Tras un adverbio negativo al inicio («Not until…») se invierte auxiliar y sujeto: «did we realize»." },
+  { tipo:"structure", q:"She would rather ___ at home tonight than attend the reception.",
+    opts:["to stay","staying","stay","stayed"], correct:2,
+    expl:"«would rather» va seguido de infinitivo sin «to»: «would rather stay»." },
+  { tipo:"structure", q:"The more you practice, ___ your writing becomes.",
+    opts:["the better","better","the best","more better"], correct:0,
+    expl:"Estructura comparativa doble: «The more…, the better…»." },
+  { tipo:"written", q:"The <u>number</u> of applicants <u>have increased</u> <u>significantly</u> <u>this</u> year.",
+    opts:["number","have increased","significantly","this"], correct:1,
+    expl:"«The number of» toma verbo singular: debe ser «has increased», no «have increased»." },
+  { tipo:"written", q:"<u>Each</u> of the students <u>were</u> <u>asked</u> to submit <u>three</u> references.",
+    opts:["Each","were","asked","three"], correct:1,
+    expl:"«Each of» exige verbo singular: «was asked», no «were asked»." },
+  { tipo:"written", q:"The scientist <u>which</u> discovered the vaccine <u>received</u> <u>a</u> prestigious <u>award</u>.",
+    opts:["which","received","a","award"], correct:0,
+    expl:"Para personas se usa «who», no «which»: «The scientist who discovered…»." },
+  { tipo:"written", q:"<u>Despite of</u> the delay, the passengers <u>remained</u> <u>calm</u> and <u>patient</u>.",
+    opts:["Despite of","remained","calm","patient"], correct:0,
+    expl:"«Despite» no lleva «of». Correcto: «Despite the delay» o «In spite of the delay»." },
+  { tipo:"structure", q:"If I ___ more time, I would have finished the report yesterday.",
+    opts:["had had","have had","would have","had"], correct:0,
+    expl:"Condicional tipo 3 (pasado irreal): «If I had had more time, I would have finished…»." }
+];
+
+// ═══════════════════════════════════════════════════════════
+//  ESTADO
+// ═══════════════════════════════════════════════════════════
+let Q = [], TOTAL = 0;
+let answers, saved, current, secondsLeft, timerInterval, timerPaused = false, reviewMode = false;
+const LS_KEY = 'toefl_itp_s2_nivel1_progreso_' + (location.pathname.split('/').pop().replace('.html','').replace(/[^a-zA-Z0-9_-]/g,'') || 'default');
+
+function _shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// Baraja las 4 opciones y reajusta el índice correcto
+function shuffleOptions(q) {
+  const idx = [...Array(q.opts.length).keys()];
+  const sh = _shuffle(idx);
+  return { ...q, opts: sh.map(i => q.opts[i]), correct: sh.indexOf(q.correct) };
+}
+
+// ═══════════════════════════════════════════════════════════
+//  NORMALIZACIÓN: convierte una pregunta del Repositorio A (JSON)
+//  al formato interno { tipo, q, opts, correct, expl, id, category }
+// ═══════════════════════════════════════════════════════════
+function normalizar(item) {
+  // opciones: admiten [{label,text}] o ["texto", ...]
+  const opts = (item.options || item.opts || []).map(o =>
+    (o && typeof o === 'object') ? (o.text ?? o.label ?? '') : String(o)
+  );
+  // índice correcto: correct_index (0-based) o correct (0-based) o correct_label ("A".."D")
+  let correct = (item.correctAnswerIndex ?? item.correct_index ?? item.correct);
+  if (correct == null && item.correct_label) {
+    correct = 'ABCDEF'.indexOf(String(item.correct_label).toUpperCase());
+  }
+  return {
+    id:       item.id || '',
+    category: item.category || '',
+    tipo:     'structure',              // Repositorio A = completar la oración
+    q:        item.question ?? item.q ?? '',
+    opts:     opts,
+    correct:  Number(correct) || 0,
+    expl:     item.explanation ?? item.expl ?? ''
+  };
+}
+
+// ═══════════════════════════════════════════════════════════
+//  CARGA DINÁMICA DESDE EL REPOSITORIO A (GitHub raw · JSON)
+//  Filtra SOLO la categoría CONFIG.CATEGORIA — con fallback a DEMO
+// ═══════════════════════════════════════════════════════════
+async function cargarBanco() {
+  try {
+    const res = await fetch(CONFIG.REPO_A_URL + '?v=' + Date.now());
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+
+    // Acepta { questions:[...] } o directamente un arreglo [...]
+    const lista = Array.isArray(data) ? data : (data.questions || []);
+    if (!Array.isArray(lista) || lista.length === 0) throw new Error('JSON sin preguntas');
+
+    const cat = (CONFIG.CATEGORIA || '').trim().toLowerCase();
+    const tipo = CONFIG.TIPO ? String(CONFIG.TIPO).trim().toLowerCase() : null;
+
+    const filtradas = lista.filter(it => {
+      const okCat  = !cat  || String(it.category || '').trim().toLowerCase() === cat;
+      const okTipo = !tipo || String(it.type || '').trim().toLowerCase() === tipo;
+      return okCat && okTipo;
+    }).map(normalizar);
+
+    if (filtradas.length === 0)
+      throw new Error('No hay preguntas de la categoría "' + CONFIG.CATEGORIA + '" en el repositorio');
+
+    usarBanco(filtradas, false);
+  } catch (err) {
+    console.warn('Repositorio A no disponible → usando DEMO:', err);
+    document.getElementById('demoNote').classList.remove('hidden');
+    usarBanco(DEMO, true);
+  }
+}
+
+function usarBanco(banco, esDemo) {
+  // 1) ALEATORIO: baraja el orden de las preguntas en cada sesión
+  let sel = _shuffle(banco);
+  // 2) recorta al tope (usa todas si hay menos de MAX_PREGUNTAS)
+  const tope = CONFIG.MAX_PREGUNTAS && CONFIG.MAX_PREGUNTAS > 0
+    ? Math.min(CONFIG.MAX_PREGUNTAS, sel.length)
+    : sel.length;
+  sel = sel.slice(0, tope);
+  // 3) opcional: barajar opciones (desactivado por defecto para no romper
+  //    las referencias de letra "(C)" de las explicaciones)
+  Q = CONFIG.BARAJAR_OPCIONES ? sel.map(shuffleOptions) : sel;
+  TOTAL = Q.length;
+  inicializarInicio();
+}
+
+// ═══════════════════════════════════════════════════════════
+//  PANTALLA DE INICIO
+// ═══════════════════════════════════════════════════════════
+function inicializarInicio() {
+  document.getElementById('hdrTitle').textContent = CONFIG.MODULO + ' (' + CONFIG.NIVEL + ')';
+  document.title = CONFIG.MODULO + ' (' + CONFIG.NIVEL + ')';
+
+  const nStructure = Q.filter(q => (q.tipo || 'structure') === 'structure').length;
+  const nWritten   = Q.filter(q => q.tipo === 'written').length;
+
+  document.getElementById('distGrid').innerHTML = `
+    <div class="dist-box">
+      <h4>📝 Structure</h4>
+      <div class="dist-row"><span>Completar la oración</span><span class="n">${nStructure}</span></div>
+    </div>`;
+
+  const totalSeg = CONFIG.SEG_POR_PREGUNTA * TOTAL;
+  const mm = Math.floor(totalSeg / 60), ss = totalSeg % 60;
+  document.getElementById('infoChips').innerHTML = `
+    <div class="chip">📝 <strong>${TOTAL}</strong> preguntas</div>
+    <div class="chip">⏱️ <strong>${CONFIG.SEG_POR_PREGUNTA}s</strong> / pregunta</div>
+    <div class="chip">🕒 <strong>${mm}:${ss < 10 ? '0' + ss : ss}</strong> total</div>
+    <div class="chip">🔤 <strong>4</strong> opciones</div>`;
+
+  document.getElementById('startTitle').textContent = CONFIG.MODULO;
+  document.getElementById('startSub').innerHTML = CONFIG.SUBTITULO;
+  document.getElementById('navTotal').textContent = TOTAL;
+
+  document.getElementById('loadingScreen').classList.add('hidden');
+  document.getElementById('startScreen').classList.remove('hidden');
+
+  document.getElementById('timer').textContent = `${mm}:${ss < 10 ? '0' + ss : ss}`;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  INICIO DEL EXAMEN
+// ═══════════════════════════════════════════════════════════
+function startExam() {
+  answers = new Array(TOTAL).fill(null);
+  saved   = new Array(TOTAL).fill(false);
+  current = 0;
+  secondsLeft = CONFIG.SEG_POR_PREGUNTA * TOTAL;
+  reviewMode = false;
+
+  restaurarProgreso(); // best-effort desde localStorage
+
+  document.getElementById('startScreen').classList.add('hidden');
+  document.getElementById('examScreen').classList.remove('hidden');
+  document.getElementById('navBar').classList.remove('hidden');
+  renderQ(0);
+  startTimer();
+}
+
+// ═══════════════════════════════════════════════════════════
+//  RENDER DE PREGUNTA
+// ═══════════════════════════════════════════════════════════
+function renderQ(idx) {
+  current = idx;
+  const q = Q[idx];
+  const sel = answers[idx];
+
+  const dots = Q.map((_, i) => {
+    let c = 'dot';
+    if (i === idx) c += ' cur';
+    else if (reviewMode) c += checkAnswer(i) ? ' hit' : ' miss';
+    else if (answers[i] !== null) c += ' done';
+    return `<div class="${c}" title="P${i + 1}"></div>`;
+  }).join('');
+
+  const tipo = q.tipo || 'structure';
+  const badgeCls = tipo === 'written' ? 'badge-written' : 'badge-structure';
+  const badgeTxt = tipo === 'written' ? 'Written Expression' : 'Structure';
+  const hint = tipo === 'written'
+    ? 'Elige la parte subrayada que contiene el error.'
+    : 'Elige la opción que completa correctamente la oración.';
+
+  const opts = q.opts.map((opt, i) => {
+    let cls = 'opt';
+    if (reviewMode) {
+      cls += ' locked';
+      if (i === q.correct) cls += ' ok';
+      else if (i === sel) cls += ' bad';
+    } else if (i === sel) cls += ' sel';
+    const ico = reviewMode
+      ? (i === q.correct ? '<span class="res-ico">✅</span>' : (i === sel ? '<span class="res-ico">❌</span>' : ''))
+      : '';
+    return `<div class="${cls}" onclick="selectOpt(${i})"><div class="opt-lt">${String.fromCharCode(65 + i)}</div><div class="opt-txt">${opt}</div>${ico}</div>`;
+  }).join('');
+
+  const savedFlag = (!reviewMode && saved[idx])
+    ? `<div class="saved-flag">✓ Respuesta guardada</div>` : '';
+  const explHTML = reviewMode
+    ? `<div class="expl"><strong>💡 Explicación:</strong> ${q.expl || 'Sin explicación.'}</div>` : '';
+
+  document.getElementById('examScreen').innerHTML = `
+    <div class="dots">${dots}</div>
+    <div class="q-hint">${hint}</div>
+    <div class="card q-card">
+      <div class="q-meta">
+        <span class="q-badge ${badgeCls}">${badgeTxt}</span>
+        <span class="q-num">P${idx + 1} / ${TOTAL}</span>
+      </div>
+      <div class="q-text">${q.q}</div>
+      <div class="opts">${opts}</div>
+      ${savedFlag}
+      ${explHTML}
+    </div>`;
+
+  const answered = answers.filter(a => a !== null).length;
+  document.getElementById('navCur').textContent = idx + 1;
+  document.getElementById('navAns').textContent = answered;
+  document.getElementById('progBar').style.width = ((idx + 1) / TOTAL * 100) + '%';
+  document.getElementById('btnBack').disabled = idx === 0;
+  document.getElementById('btnNext').textContent = idx === TOTAL - 1 ? 'Revisar →' : 'Seguir →';
+
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+function selectOpt(i) {
+  if (reviewMode) return;
+  answers[current] = i;
+  saved[current] = false; // cambió la selección: pendiente de guardar
+  renderQ(current);
+}
+
+// ═══════════════════════════════════════════════════════════
+//  BOTONES: ATRÁS · GUARDAR · SEGUIR
+// ═══════════════════════════════════════════════════════════
+function atras() {
+  if (current > 0) renderQ(current - 1);
+}
+
+function guardar() {
+  if (answers[current] === null) {
+    toast('Selecciona una opción para guardar');
+    return;
+  }
+  saved[current] = true;
+  persistir();
+  renderQ(current);
+  toast('Respuesta guardada ✓');
+}
+
+function seguir() {
+  // «Seguir» conserva la selección aunque no se haya pulsado Guardar
+  if (answers[current] !== null && !saved[current]) { saved[current] = true; persistir(); }
+  if (current < TOTAL - 1) renderQ(current + 1);
+  else showFinalize();
+}
+
+// ═══════════════════════════════════════════════════════════
+//  REVISAR ANTES DE ENVIAR
+// ═══════════════════════════════════════════════════════════
+function showFinalize() {
+  clearInterval(timerInterval);
+  const answered = answers.filter(a => a !== null).length;
+  const missingIdx = answers.map((a, i) => a === null ? i + 1 : null).filter(Boolean);
+  const missing = missingIdx.length;
+
+  const chips = Q.map((_, i) => {
+    const cls = answers[i] !== null ? 'answered' : 'missing';
+    return `<button class="q-chip ${cls}" onclick="volverAlExamen(${i})">${i + 1}</button>`;
+  }).join('');
+
+  const missingNote = missing > 0
+    ? `<div class="missing-note">⚠️ Te faltan <strong>${missing}</strong> por contestar: ${missingIdx.join(', ')}. Toca un número para volver a esa pregunta.</div>`
+    : `<div class="missing-note" style="background:var(--green-soft);border-color:var(--green);color:var(--green)">✅ Contestaste las ${TOTAL} preguntas. ¡Listo para enviar!</div>`;
+
+  document.getElementById('examScreen').classList.add('hidden');
+  document.getElementById('navBar').classList.add('hidden');
+  document.getElementById('finalizeScreen').classList.remove('hidden');
+  document.getElementById('finalizeScreen').innerHTML = `
+    <div class="card fin">
+      <h2>Revisa antes de enviar</h2>
+      <p class="sub">Verifica que no falte ninguna pregunta por contestar.</p>
+      <div class="fin-summary">
+        <div class="fin-stat ok"><div class="num">${answered}</div><div class="lab">Contestadas</div></div>
+        <div class="fin-stat miss"><div class="num">${missing}</div><div class="lab">Sin contestar</div></div>
+      </div>
+      <div class="grid-label">Mapa de respuestas</div>
+      <div class="q-grid">${chips}</div>
+      <div class="fin-legend">
+        <span><span class="lg-dot" style="background:var(--teal)"></span>Contestada</span>
+        <span><span class="lg-dot" style="background:#FFF6E6;border:1.5px solid #F3D89A"></span>Falta</span>
+      </div>
+      ${missingNote}
+      <div class="fin-actions">
+        <button class="btn btn-save btn-lg" onclick="guardarTodas()">💾 Guardar todas</button>
+        <button class="btn btn-p btn-lg" onclick="enviar()">Enviar y ver resultados →</button>
+        <button class="btn btn-ghost btn-lg" onclick="volverAlExamen(${current})">← Volver al examen</button>
+      </div>
+    </div>`;
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+function volverAlExamen(i) {
+  document.getElementById('finalizeScreen').classList.add('hidden');
+  document.getElementById('examScreen').classList.remove('hidden');
+  document.getElementById('navBar').classList.remove('hidden');
+  if (!timerInterval || secondsLeft > 0) startTimer();
+  renderQ(i);
+}
+
+function guardarTodas() {
+  answers.forEach((a, i) => { if (a !== null) saved[i] = true; });
+  persistir();
+  toast('Todas las respuestas guardadas ✓');
+}
+
+function enviar() {
+  const missing = answers.filter(a => a === null).length;
+  if (missing > 0) {
+    const ok = confirm(`Tienes ${missing} pregunta(s) sin contestar. Se contarán como incorrectas.\n\n¿Enviar de todos modos?`);
+    if (!ok) return;
+  }
+  showResults();
+}
+
+// ═══════════════════════════════════════════════════════════
+//  TIMER
+// ═══════════════════════════════════════════════════════════
+function startTimer() {
+  if (timerInterval) clearInterval(timerInterval);
+  const el = document.getElementById('timer');
+  const paint = () => {
+    const m = Math.floor(secondsLeft / 60), s = secondsLeft % 60;
+    el.textContent = `${m}:${s < 10 ? '0' + s : s}`;
+    el.className = 'timer' + (secondsLeft <= 60 ? ' danger' : secondsLeft <= 300 ? ' warn' : '');
+  };
+  paint();
+  timerInterval = setInterval(() => {
+    if (timerPaused) return;  // ← si está pausado, no descuenta ni repinta
+    secondsLeft--;
+    paint();
+    if (secondsLeft <= 0) { clearInterval(timerInterval); showResults(); }
+  }, 1000);
+}
+function toggleTimer() {
+  timerPaused = !timerPaused;
+  const btn = document.getElementById('timerToggleBtn');
+  const ico = document.getElementById('timerToggleIco');
+  const lbl = document.getElementById('timerToggleLbl');
+  if (btn) btn.classList.toggle('paused', timerPaused);
+  if (ico) ico.textContent = timerPaused ? '▶' : '⏸';
+  if (lbl) lbl.textContent = timerPaused ? 'Reanudar' : 'Pausar';
+  if (btn) btn.setAttribute('aria-label', timerPaused ? 'Reanudar temporizador' : 'Pausar temporizador');
+}
+
+// ═══════════════════════════════════════════════════════════
+//  VERIFICACIÓN
+// ═══════════════════════════════════════════════════════════
+function checkAnswer(idx) {
+  return answers[idx] === Q[idx].correct;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  RESULTADOS
+// ═══════════════════════════════════════════════════════════
+function showResults() {
+  clearInterval(timerInterval);
+  reviewMode = false;
+
+  const total = answers.reduce((a, _, i) => a + (checkAnswer(i) ? 1 : 0), 0);
+  const pct = Math.round((total / TOTAL) * 100);
+  const pass = pct >= 70;
+
+  const tipos = [
+    { key: 'structure', lab: 'Structure' },
+    { key: 'written',   lab: 'Written Expression' }
+  ];
+  const brkdn = tipos.map(t => {
+    const idxs = Q.map((q, i) => ((q.tipo || 'structure') === t.key) ? i : -1).filter(i => i >= 0);
+    if (!idxs.length) return '';
+    const hits = idxs.filter(i => checkAnswer(i)).length;
+    const p = Math.round((hits / idxs.length) * 100);
+    return `<div class="bk-item">
+      <div class="bk-lbl">${t.lab}</div>
+      <div class="bk-sc">${hits}/${idxs.length} <small>(${p}%)</small></div>
+      <div class="bk-bar"><div class="bk-fill" style="width:${p}%"></div></div>
+    </div>`;
+  }).join('');
+
+  const ringBg = pass
+    ? 'linear-gradient(135deg, var(--teal) 0%, var(--teal-d) 100%)'
+    : 'linear-gradient(135deg, var(--coral) 0%, var(--coral-d) 100%)';
+
+  document.getElementById('examScreen').classList.add('hidden');
+  document.getElementById('finalizeScreen').classList.add('hidden');
+  document.getElementById('navBar').classList.add('hidden');
+  document.getElementById('resultsScreen').classList.remove('hidden');
+  document.getElementById('resultsScreen').innerHTML = `
+    <div class="card res">
+      <div class="score-ring" style="background:${ringBg}">${pct}%</div>
+      <h2>${pass ? '¡Excelente trabajo! 🎉' : 'Sigue practicando 💪'}</h2>
+      <p class="res-big"><strong>${total}</strong> aciertos de <strong>${TOTAL}</strong> preguntas</p>
+      <div class="brkdn">${brkdn}</div>
+      <p style="font-size:.8rem;color:var(--muted);margin:6px 0 20px;line-height:1.5;font-weight:500">
+        ${pass ? 'Superaste el umbral del 70%. Vas muy bien en Structure & Written Expression.'
+               : 'No alcanzaste el 70%. Repasa las secciones con menor puntaje y vuelve a intentarlo.'}
+      </p>
+      <button class="btn btn-p btn-lg" onclick="reviewAnswers()" style="margin-bottom:10px">📖 Revisar respuestas</button>
+      <button class="btn btn-s btn-lg" onclick="nuevoIntento()">🔀 Nuevo intento</button>
+    </div>`;
+  limpiarProgreso();
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+// ═══════════════════════════════════════════════════════════
+//  REVISIÓN DE RESPUESTAS
+// ═══════════════════════════════════════════════════════════
+function reviewAnswers() {
+  reviewMode = true;
+  document.getElementById('resultsScreen').classList.add('hidden');
+  document.getElementById('examScreen').classList.remove('hidden');
+  document.getElementById('navBar').classList.remove('hidden');
+  document.getElementById('navBar').innerHTML = `
+    <div class="nav-info">
+      <div class="cur">Revisión <strong id="navCur">1</strong> de <strong id="navTotal">${TOTAL}</strong></div>
+      <div class="ans" id="navReviewStatus">—</div>
+    </div>
+    <div class="nav-btns" style="grid-template-columns:1fr 1fr 1fr">
+      <button class="btn btn-s" onclick="prevReview()">← Ant.</button>
+      <button class="btn btn-p" id="btnNextReview" onclick="nextReview()">Sig. →</button>
+      <button class="btn btn-ghost" onclick="backToResults()">✕ Salir</button>
+    </div>`;
+  renderReview(0);
+}
+function renderReview(idx) {
+  renderQ(idx);
+  const st = document.getElementById('navReviewStatus');
+  if (st) st.innerHTML = checkAnswer(idx)
+    ? '<span style="color:var(--green);font-weight:700">✅ Correcta</span>'
+    : '<span style="color:var(--red);font-weight:700">❌ Incorrecta</span>';
+  const btn = document.getElementById('btnNextReview');
+  if (btn) btn.textContent = idx === TOTAL - 1 ? '🏁 Fin' : 'Sig. →';
+}
+function nextReview() { if (current < TOTAL - 1) renderReview(current + 1); else backToResults(); }
+function prevReview() { if (current > 0) renderReview(current - 1); }
+function backToResults() {
+  document.getElementById('examScreen').classList.add('hidden');
+  document.getElementById('navBar').classList.add('hidden');
+  document.getElementById('resultsScreen').classList.remove('hidden');
+  restaurarNavBar();
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+function nuevoIntento() { limpiarProgreso(); location.reload(); }
+
+// Restaura la barra inferior original (Atrás · Guardar · Seguir)
+function restaurarNavBar() {
+  document.getElementById('navBar').innerHTML = `
+    <div class="nav-info">
+      <div class="cur">Pregunta <strong id="navCur">1</strong> de <strong id="navTotal">${TOTAL}</strong></div>
+      <div class="ans">Contestadas: <strong id="navAns">0</strong></div>
+    </div>
+    <div class="nav-btns">
+      <button class="btn btn-save" id="btnSave" onclick="guardar()">💾 Guardar</button>
+      <div class="nav-move">
+        <button class="btn btn-s" id="btnBack" onclick="atras()">← Atrás</button>
+        <button class="btn btn-p" id="btnNext" onclick="seguir()">Seguir →</button>
+      </div>
+    </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  PERSISTENCIA (best-effort, no rompe si no hay localStorage)
+// ═══════════════════════════════════════════════════════════
+function persistir() {
+  try { localStorage.setItem(LS_KEY, JSON.stringify({ answers, saved, secondsLeft, ts: Date.now() })); } catch (e) {}
+}
+function restaurarProgreso() {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (!raw) return;
+    const d = JSON.parse(raw);
+    if (d && Array.isArray(d.answers) && d.answers.length === TOTAL) {
+      answers = d.answers;
+      saved   = Array.isArray(d.saved) && d.saved.length === TOTAL ? d.saved : new Array(TOTAL).fill(false);
+      if (typeof d.secondsLeft === 'number' && d.secondsLeft > 0) secondsLeft = d.secondsLeft;
+      if (answers.some(a => a !== null)) toast('Progreso anterior restaurado');
+    }
+  } catch (e) {}
+}
+function limpiarProgreso() { try { localStorage.removeItem(LS_KEY); } catch (e) {} }
+
+// ═══════════════════════════════════════════════════════════
+//  TOAST
+// ═══════════════════════════════════════════════════════════
+let toastTimer;
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 1600);
+}
+
+// ── Arranque ──
+cargarBanco();
+</script>
+</body>
+</html>
