@@ -725,14 +725,14 @@ function guardar() {
     return;
   }
   saved[current] = true;
-  //persistir();
+  persistir();
   renderQ(current);
   toast('Respuesta guardada ✓');
 }
 
 function seguir() {
   // «Seguir» conserva la selección aunque no se haya pulsado Guardar
-  if (answers[current] !== null && !saved[current]) { saved[current] = true; } //persistir(); removido después de true;
+  if (answers[current] !== null && !saved[current]) { saved[current] = true; persistir(); }
   if (current < TOTAL - 1) renderQ(current + 1);
   else showFinalize();
 }
@@ -790,11 +790,11 @@ function volverAlExamen(i) {
   renderQ(i);
 }
 
-// function guardarTodas() {
-//   answers.forEach((a, i) => { if (a !== null) saved[i] = true; });
-//   persistir();
-//   toast('Todas las respuestas guardadas ✓');
-// }
+function guardarTodas() {
+  answers.forEach((a, i) => { if (a !== null) saved[i] = true; });
+  persistir();
+  toast('Todas las respuestas guardadas ✓');
+}
 
 function enviar() {
   const missing = answers.filter(a => a === null).length;
@@ -953,22 +953,22 @@ function restaurarNavBar() {
 // ═══════════════════════════════════════════════════════════
 //  PERSISTENCIA (best-effort, no rompe si no hay localStorage)
 // ═══════════════════════════════════════════════════════════
-// function persistir() {
-//   try { localStorage.setItem(LS_KEY, JSON.stringify({ answers, saved, ts: Date.now() })); } catch (e) {} //removed secondsLeft after saved
-// }
-// function restaurarProgreso() {
-//   try {
-//     const raw = localStorage.getItem(LS_KEY);
-//     if (!raw) return;
-//     const d = JSON.parse(raw);
-//     if (d && Array.isArray(d.answers) && d.answers.length === TOTAL) {
-//       answers = d.answers;
-//       saved   = Array.isArray(d.saved) && d.saved.length === TOTAL ? d.saved : new Array(TOTAL).fill(false);
-//       //if (typeof d.secondsLeft === 'number' && d.secondsLeft > 0) secondsLeft = d.secondsLeft; ❌ ELIMINADO: ya NO restauramos secondsLeft desde localStorage. El tiempo siempre comienza desde cero
-//       if (answers.some(a => a !== null)) toast('Progreso anterior restaurado');      
-//     }
-//   } catch (e) {}  
-// }
+function persistir() {
+  try { localStorage.setItem(LS_KEY, JSON.stringify({ answers, saved, ts: Date.now() })); } catch (e) {} //removed secondsLeft after saved
+}
+function restaurarProgreso() {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (!raw) return;
+    const d = JSON.parse(raw);
+    if (d && Array.isArray(d.answers) && d.answers.length === TOTAL) {
+      answers = d.answers;
+      saved   = Array.isArray(d.saved) && d.saved.length === TOTAL ? d.saved : new Array(TOTAL).fill(false);
+      //if (typeof d.secondsLeft === 'number' && d.secondsLeft > 0) secondsLeft = d.secondsLeft; ❌ ELIMINADO: ya NO restauramos secondsLeft desde localStorage. El tiempo siempre comienza desde cero
+      if (answers.some(a => a !== null)) toast('Progreso anterior restaurado');      
+    }
+  } catch (e) {}  
+}
 function limpiarProgreso() { try { localStorage.removeItem(LS_KEY); } catch (e) {} }
 
 // ═══════════════════════════════════════════════════════════
