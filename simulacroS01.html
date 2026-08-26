@@ -603,7 +603,7 @@ function inicializarInicio() {
       <div class="dist-row"><span>Asegúrate que la oración tengo sujeto y verbo</span><span class="n">${nStructure}</span></div>
     </div>`;
 
-  const totalSeg = Math.ceil((CONFIG.SEG_POR_PREGUNTA * TOTAL) / 60) * 60;
+  const totalSeg = CONFIG.SEG_POR_PREGUNTA * TOTAL;
   const mm = Math.floor(totalSeg / 60), ss = totalSeg % 60;
   document.getElementById('infoChips').innerHTML = `
     <div class="chip">📝 <strong>${TOTAL}</strong> preguntas</div>
@@ -628,11 +628,10 @@ function startExam() {
   answers = new Array(TOTAL).fill(null);
   saved   = new Array(TOTAL).fill(false);
   current = 0;
-  const totalSegundos = CONFIG.SEG_POR_PREGUNTA * TOTAL;
-  secondsLeft = Math.ceil(totalSegundos / 60) * 60;
+  secondsLeft = CONFIG.SEG_POR_PREGUNTA * TOTAL;
   reviewMode = false;
 
-  const hayProgreso = restaurarProgreso(); // ahora sabemos si restauró algo o no
+  restaurarProgreso(); // best-effort desde localStorage
 
   document.getElementById('startScreen').classList.add('hidden');
   document.getElementById('examScreen').classList.remove('hidden');
@@ -960,17 +959,15 @@ function persistir() {
 function restaurarProgreso() {
   try {
     const raw = localStorage.getItem(LS_KEY);
-    if (!raw) return false;
+    if (!raw) return;
     const d = JSON.parse(raw);
     if (d && Array.isArray(d.answers) && d.answers.length === TOTAL) {
       answers = d.answers;
       saved   = Array.isArray(d.saved) && d.saved.length === TOTAL ? d.saved : new Array(TOTAL).fill(false);
       if (typeof d.secondsLeft === 'number' && d.secondsLeft > 0) secondsLeft = d.secondsLeft;
-      if (answers.some(a => a !== null)) toast('Progreso anterior restaurado');
-      return true;
+      if (answers.some(a => a !== null)) toast('Progreso anterior restaurado');      
     }
-  } catch (e) {}
-  return false;
+  } catch (e) {}  
 }
 function limpiarProgreso() { try { localStorage.removeItem(LS_KEY); } catch (e) {} }
 
