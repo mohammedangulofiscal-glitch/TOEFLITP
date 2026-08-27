@@ -554,17 +554,19 @@ async function cargarBanco() {
     const lista = Array.isArray(data) ? data : (data.questions || []);
     if (!Array.isArray(lista) || lista.length === 0) throw new Error('JSON sin preguntas');
 
-    const cat = (CONFIG.CATEGORIA || '').trim().toLowerCase();
+    const cats = (Array.isArray(CONFIG.CATEGORIA) ? CONFIG.CATEGORIA : [CONFIG.CATEGORIA])
+                   .filter(Boolean)
+                   .map(c => String(c).trim().toLowerCase());
     const tipo = CONFIG.TIPO ? String(CONFIG.TIPO).trim().toLowerCase() : null;
 
     const filtradas = lista.filter(it => {
-      const okCat  = !cat  || String(it.category || '').trim().toLowerCase() === cat;
+      const okCat  = cats.length === 0 || cats.includes(String(it.category || '').trim().toLowerCase());
       const okTipo = !tipo || String(it.type || '').trim().toLowerCase() === tipo;
       return okCat && okTipo;
     }).map(normalizar);
 
     if (filtradas.length === 0)
-      throw new Error('No hay preguntas de la categoría "' + CONFIG.CATEGORIA + '" en el repositorio');
+      throw new Error('No hay preguntas de la(s) categoría(s) "' + [].concat(CONFIG.CATEGORIA).join(' + ') + '" en el repositorio');
 
     usarBanco(filtradas, false);
   } catch (err) {
