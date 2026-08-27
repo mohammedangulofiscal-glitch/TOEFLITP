@@ -41,9 +41,9 @@
     REPO_A_URL:        'https://raw.githubusercontent.com/mohammedangulofiscal-glitch/RepositoriosTOEFL/main/TOEFL_Type_A.json',
     CATEGORIA:         'Parallel Structures',  // tema a filtrar del repositorio
     TIPO:              'A',                      // 'A' = completar oración; null = no filtrar por tipo
-    MODULO:            'Structure · Parallel Structures',
+    MODULO:            'Parallel Structures',
     NIVEL:             'TOEFL ITP',
-    SUBTITULO:         'Sección 2 · Gramática y estructura · Tema: <strong>Parallel Structures</strong> · A · B · C · D',
+    SUBTITULO:         'Section 2 Structure · Options: A · B · C · D',
     SEG_POR_PREGUNTA:  40,    // segundos por pregunta
     MAX_PREGUNTAS:     10,    // tope de preguntas por sesión (nunca pasa de 20; usa todas si hay menos)
     BARAJAR_OPCIONES:  false  // false = mantiene el orden original (las explicaciones citan "opción (C)", etc.)
@@ -601,8 +601,8 @@ function inicializarInicio() {
 
   document.getElementById('distGrid').innerHTML = `
     <div class="dist-box">
-      <h4>📝 Structure</h4>
-      <div class="dist-row"><span>Completar la oración</span><span class="n">${nStructure}</span></div>
+      <h4>📝 Consejo</h4>
+      <div class="dist-row"><span>Las estructuras paralelas conectan ideas del mismo tipo</span><span class="n">${nStructure}</span></div>
     </div>`;
 
   const totalSeg = CONFIG.SEG_POR_PREGUNTA * TOTAL;
