@@ -42,9 +42,9 @@
     REPO_URL:          'https://raw.githubusercontent.com/mohammedangulofiscal-glitch/RepositoriosTOEFL/main/TOEFL_Type_B.json',
     CATEGORIA:         'Comparatives And Superlatives',  // tema del repo B a filtrar
     TIPO:              'B',                       // 'B' = identificar el error (Written Expression)
-    MODULO:            'Written Expression · Comparatives And Superlatives',
+    MODULO:            'Comparatives And Superlatives',
     NIVEL:             'TOEFL ITP',
-    SUBTITULO:         'Sección 2 · Written Expression · Tema: <strong>Comparatives And Superlatives</strong> · Identificar el error · A · B · C · D',
+    SUBTITULO:         'Section 2 Written Expression · Options: A · B · C · D',
     SEG_POR_PREGUNTA:  40,    // segundos por pregunta
     MAX_PREGUNTAS:     10,    // tope de preguntas por sesión (usa todas si hay menos)
     BARAJAR_OPCIONES:  false  // false = mantiene el orden original (las explicaciones citan "opción (C)", etc.)
@@ -665,8 +665,8 @@ function inicializarInicio() {
 
   document.getElementById('distGrid').innerHTML = `
     <div class="dist-box">
-      <h4>🔍 Written Expression</h4>
-      <div class="dist-row"><span>Identificar el error</span><span class="n">${nWritten}</span></div>
+      <h4>🔍 Consejo</h4>
+      <div class="dist-row"><span>Cambian el adjetivo comparativo o le quitan 'the' al superlativo</span><span class="n">${nWritten}</span></div>
     </div>`;
 
   const totalSeg = CONFIG.SEG_POR_PREGUNTA * TOTAL;
