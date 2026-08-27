@@ -519,7 +519,9 @@ const DEMO = [
 // ═══════════════════════════════════════════════════════════
 let Q = [], TOTAL = 0;
 let answers, saved, current, secondsLeft, timerInterval, timerPaused = false, reviewMode = false;
-const LS_KEY = 'toefl_itp_s2_nivel1_progreso_' + (location.pathname.split('/').pop().replace('.html','').replace(/[^a-zA-Z0-9_-]/g,'') || 'default');
+// const LS_KEY = 'toefl_itp_s2_nivel1_progreso_' + (location.pathname.split('/').pop().replace('.html','').replace(/[^a-zA-Z0-9_-]/g,'') || 'default');
+// Ya no usamos localStorage, pero mantenemos la clave por si acaso
+const LS_KEY = 'toefl_itp_s2_nivel1_progreso_';
 
 function _shuffle(arr) {
   const a = [...arr];
@@ -695,7 +697,9 @@ function startExam() {
   secondsLeft = CONFIG.SEG_POR_PREGUNTA * TOTAL;
   reviewMode = false;
 
-  restaurarProgreso(); // best-effort desde localStorage
+  // restaurarProgreso(); // best-effort desde localStorage
+    // ✅ LIMPIAMOS cualquier progreso guardado previamente
+  limpiarProgreso();
 
   document.getElementById('startScreen').classList.add('hidden');
   document.getElementById('examScreen').classList.remove('hidden');
@@ -799,14 +803,14 @@ function guardar() {
     return;
   }
   saved[current] = true;
-  persistir();
+  // persistir();
   renderQ(current);
   toast('Respuesta guardada ✓');
 }
 
 function seguir() {
   // «Seguir» conserva la selección aunque no se haya pulsado Guardar
-  if (answers[current] !== null && !saved[current]) { saved[current] = true; persistir(); }
+  if (answers[current] !== null && !saved[current]) { saved[current] = true; } //  persistir(); se quitó después de true;
   if (current < TOTAL - 1) renderQ(current + 1);
   else showFinalize();
 }
@@ -1024,26 +1028,33 @@ function restaurarNavBar() {
     </div>`;
 }
 
+//  PERSISTENCIA - ELIMINADA COMPLETAMENTE
+//  Ya NO guardamos ni restauramos nada en localStorage
+// ═══════════════════════════════════════════════════════════
+function limpiarProgreso() { 
+  try { localStorage.removeItem(LS_KEY); } catch (e) {} 
+}
+  
 // ═══════════════════════════════════════════════════════════
 //  PERSISTENCIA (best-effort, no rompe si no hay localStorage)
 // ═══════════════════════════════════════════════════════════
-function persistir() {
-  try { localStorage.setItem(LS_KEY, JSON.stringify({ answers, saved, ts: Date.now() })); } catch (e) {} //removed secondsLeft after saved
-}
-function restaurarProgreso() {
-  try {
-    const raw = localStorage.getItem(LS_KEY);
-    if (!raw) return;
-    const d = JSON.parse(raw);
-    if (d && Array.isArray(d.answers) && d.answers.length === TOTAL) {
-      answers = d.answers;
-      saved   = Array.isArray(d.saved) && d.saved.length === TOTAL ? d.saved : new Array(TOTAL).fill(false);
-      //if (typeof d.secondsLeft === 'number' && d.secondsLeft > 0) secondsLeft = d.secondsLeft; //❌ ELIMINADO: ya NO restauramos secondsLeft desde localStorage. El tiempo siempre comienza desde cero
-      if (answers.some(a => a !== null)) toast('Progreso anterior restaurado');
-    }
-  } catch (e) {}
-}
-function limpiarProgreso() { try { localStorage.removeItem(LS_KEY); } catch (e) {} }
+// function persistir() {
+//   try { localStorage.setItem(LS_KEY, JSON.stringify({ answers, saved, ts: Date.now() })); } catch (e) {} //removed secondsLeft after saved
+// }
+// function restaurarProgreso() {
+//   try {
+//     const raw = localStorage.getItem(LS_KEY);
+//     if (!raw) return;
+//     const d = JSON.parse(raw);
+//     if (d && Array.isArray(d.answers) && d.answers.length === TOTAL) {
+//       answers = d.answers;
+//       saved   = Array.isArray(d.saved) && d.saved.length === TOTAL ? d.saved : new Array(TOTAL).fill(false);
+//       //if (typeof d.secondsLeft === 'number' && d.secondsLeft > 0) secondsLeft = d.secondsLeft; //❌ ELIMINADO: ya NO restauramos secondsLeft desde localStorage. El tiempo siempre comienza desde cero
+//       if (answers.some(a => a !== null)) toast('Progreso anterior restaurado');
+//     }
+//   } catch (e) {}
+// }
+// function limpiarProgreso() { try { localStorage.removeItem(LS_KEY); } catch (e) {} }
 
 // ═══════════════════════════════════════════════════════════
 //  TOAST
