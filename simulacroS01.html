@@ -609,7 +609,7 @@ function inicializarInicio() {
   const mm = Math.floor(totalSeg / 60), ss = totalSeg % 60;
   document.getElementById('infoChips').innerHTML = `
     <div class="chip">📝 <strong>${TOTAL}</strong> preguntas</div>
-    <div class="chip">⏱️ <strong>${CONFIG.SEG_POR_PREGUNTA}s</strong> / pregunta</div>
+    // <div class="chip">⏱️ <strong>${CONFIG.SEG_POR_PREGUNTA}s</strong> / pregunta</div>
     <div class="chip">🕒 <strong>${mm}:${ss < 10 ? '0' + ss : ss}</strong> total</div>
     <div class="chip">🔤 <strong>4</strong> opciones</div>`;
 
