@@ -48,6 +48,50 @@
     MAX_PREGUNTAS:     10,    // tope de preguntas por sesión (nunca pasa de 20; usa todas si hay menos)
     BARAJAR_OPCIONES:  false  // false = mantiene el orden original (las explicaciones citan "opción (C)", etc.)
   };
+
+// ═══════════════════════════════════════════════════════════
+//  CONSEJOS POR CATEGORÍA
+// ═══════════════════════════════════════════════════════════
+const CONSEJOS_URL = 'https://raw.githubusercontent.com/mohammedangulofiscal-glitch/RepositoriosTOEFL/refs/heads/main/consejos_type_A.json';
+
+let consejosBanco = null;
+
+async function cargarConsejos() {
+  try {
+    const res = await fetch(CONSEJOS_URL + '?v=' + Date.now());
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    consejosBanco = await res.json();
+    console.log('✅ Consejos cargados correctamente');
+  } catch (err) {
+    console.warn('⚠️ No se pudieron cargar los consejos, usando fallback:', err);
+    // Fallback en caso de error
+    consejosBanco = {
+      "default": [
+        "Asegúrate que la oración tenga sujeto y verbo",
+        "Lee cada pregunta con atención antes de seleccionar tu respuesta",
+        "Administra tu tiempo: no te detengas demasiado en una sola pregunta",
+        "Elimina las opciones claramente incorrectas para aumentar tus probabilidades"
+      ]
+    };
+  }
+}
+
+function obtenerConsejo(categoria) {
+  if (!consejosBanco) return "Asegúrate que la oración tenga sujeto y verbo";
+  
+  // Buscar consejos para la categoría específica
+  let consejos = consejosBanco[categoria] || consejosBanco["default"] || consejosBanco["default"];
+  
+  // Si no hay consejos para la categoría, usar los de "default"
+  if (!consejos || consejos.length === 0) {
+    consejos = consejosBanco["default"] || ["Asegúrate que la oración tenga sujeto y verbo"];
+  }
+  
+  // Seleccionar un consejo aleatorio
+  const indiceAleatorio = Math.floor(Math.random() * consejos.length);
+  return consejos[indiceAleatorio];
+}  
+  
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -545,6 +589,9 @@ function normalizar(item) {
 //  Filtra SOLO la categoría CONFIG.CATEGORIA — con fallback a DEMO
 // ═══════════════════════════════════════════════════════════
 async function cargarBanco() {
+  // ✅ Cargar consejos primero (en paralelo)
+  const promesaConsejos = cargarConsejos();
+  
   try {
     const res = await fetch(CONFIG.REPO_A_URL + '?v=' + Date.now());
     if (!res.ok) throw new Error('HTTP ' + res.status);
@@ -566,10 +613,15 @@ async function cargarBanco() {
     if (filtradas.length === 0)
       throw new Error('No hay preguntas de la categoría "' + CONFIG.CATEGORIA + '" en el repositorio');
 
+    // ✅ Esperar a que los consejos se carguen (ya se iniciaron en paralelo)
+    await promesaConsejos;
+
     usarBanco(filtradas, false);
   } catch (err) {
     console.warn('Repositorio A no disponible → usando DEMO:', err);
     document.getElementById('demoNote').classList.remove('hidden');
+    // ✅ Esperar a que los consejos se carguen (ya se iniciaron en paralelo)
+    await promesaConsejos;
     usarBanco(DEMO, true);
   }
 }
@@ -599,17 +651,20 @@ function inicializarInicio() {
   const nStructure = Q.filter(q => (q.tipo || 'structure') === 'structure').length;
   const nWritten   = Q.filter(q => q.tipo === 'written').length;
 
+  // ✅ Obtener consejo aleatorio según la categoría
+  const categoria = CONFIG.CATEGORIA || 'default';
+  const consejo = obtenerConsejo(categoria);
+
   document.getElementById('distGrid').innerHTML = `
     <div class="dist-box">
-      <h4>📝 Consejo</h4>
-      <div class="dist-row"><span>Asegúrate que las palabras estén en el orden correcto</span><span class="n">${nStructure}</span></div>
+      <h4>💡 Consejo</h4>
+      <div class="dist-row"><span>${consejo}</span></div>
     </div>`;
 
   const totalSeg = CONFIG.SEG_POR_PREGUNTA * TOTAL;
   const mm = Math.floor(totalSeg / 60), ss = totalSeg % 60;
   document.getElementById('infoChips').innerHTML = `
     <div class="chip">📝 <strong>${TOTAL}</strong> preguntas</div>
-    <div class="chip">⏱️ <strong>${CONFIG.SEG_POR_PREGUNTA}s</strong> / pregunta</div>
     <div class="chip">🕒 <strong>${mm}:${ss < 10 ? '0' + ss : ss}</strong> total</div>
     <div class="chip">🔤 <strong>4</strong> opciones</div>`;
 
