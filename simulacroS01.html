@@ -685,7 +685,8 @@ function startExam() {
   answers = new Array(TOTAL).fill(null);
   saved   = new Array(TOTAL).fill(false);
   current = 0;
-  secondsLeft = CONFIG.SEG_POR_PREGUNTA * TOTAL;
+  const totalSegundos = CONFIG.SEG_POR_PREGUNTA * TOTAL;
+  secondsLeft = Math.ceil(totalSegundos / 60) * 60;
   reviewMode = false;
 
   // restaurarProgreso(); // best-effort desde localStorage
@@ -871,7 +872,8 @@ function startTimer() {
   if (timerInterval) clearInterval(timerInterval);
   const el = document.getElementById('timer');
   const paint = () => {
-    const m = Math.floor(secondsLeft / 60), s = secondsLeft % 60;
+    const totalSegundos = CONFIG.SEG_POR_PREGUNTA * TOTAL;
+    secondsLeft = Math.ceil(totalSegundos / 60) * 60;
     el.textContent = `${m}:${s < 10 ? '0' + s : s}`;
     el.className = 'timer' + (secondsLeft <= 60 ? ' danger' : secondsLeft <= 300 ? ' warn' : '');
   };
