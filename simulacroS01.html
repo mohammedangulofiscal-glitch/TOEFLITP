@@ -661,7 +661,7 @@ function inicializarInicio() {
       <div class="dist-row"><span>${consejo}</span></div>
     </div>`;
 
-  const totalSeg = Math.ceil((CONFIG.SEG_POR_PREGUNTA * TOTAL) / 60) * 60;
+  const totalSeg = CONFIG.SEG_POR_PREGUNTA * TOTAL;
   const mm = Math.floor(totalSeg / 60), ss = totalSeg % 60;
   document.getElementById('infoChips').innerHTML = `
     <div class="chip">📝 <strong>${TOTAL}</strong> preguntas</div>
