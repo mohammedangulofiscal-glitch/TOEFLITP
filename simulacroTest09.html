@@ -120,6 +120,20 @@
     display: flex; align-items: center; justify-content: center;
     font-size: 1.15rem;
   }
+  .hdr-back {
+    width: 30px; height: 30px; flex-shrink: 0;
+    border-radius: 9px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.14);
+    color: rgba(255,255,255,.72);
+    font-size: 1.05rem; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; text-decoration: none;
+    transition: background .18s ease, color .18s ease, transform .12s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .hdr-back:hover  { background: rgba(255,255,255,.18); color: #fff; }
+  .hdr-back:active { transform: scale(.92); }
   .hdr-text { flex: 1; min-width: 0; }
   .hdr .h-badge {
     font-size: .54rem; font-weight: 700; letter-spacing: .16em;
