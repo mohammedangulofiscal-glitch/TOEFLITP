@@ -634,8 +634,8 @@ function usarBanco(banco, esDemo) {
 //  PANTALLA DE INICIO
 // ═══════════════════════════════════════════════════════════
 function inicializarInicio() {
-  document.getElementById('hdrTitle').textContent = CONFIG.MODULO + ' (' + CONFIG.NIVEL + ')';
-  document.title = CONFIG.MODULO + ' (' + CONFIG.NIVEL + ')';
+  document.getElementById('hdrTitle').textContent = CONFIG.MODULO; // + ' (' + CONFIG.NIVEL + ')';
+  document.title = CONFIG.MODULO; // + ' (' + CONFIG.NIVEL + ')';
 
   const nStructure = Q.filter(q => (q.tipo || 'structure') === 'structure').length;
   const nWritten   = Q.filter(q => q.tipo === 'written').length;
