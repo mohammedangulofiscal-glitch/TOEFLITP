@@ -282,6 +282,104 @@
     color: #fff; box-shadow: 0 6px 16px rgba(18,165,148,.28);
   }
   .btn-index:active { box-shadow: 0 3px 10px rgba(18,165,148,.24); }
+
+  /* ── NEW: NOTUM APP INTRO SECTION ────────────────── */
+  .notum-intro {
+    background: linear-gradient(145deg, #F8FCFB 0%, #EEF7F5 100%);
+    border-radius: var(--r);
+    padding: 22px 20px 24px;
+    margin-bottom: 8px;
+    border: 1px solid rgba(18, 165, 148, 0.18);
+    box-shadow: 0 6px 18px rgba(13, 59, 58, 0.05);
+  }
+
+  .notum-intro .ni-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .58rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--teal-d);
+    background: rgba(18, 165, 148, 0.12);
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(18, 165, 148, 0.2);
+  }
+
+  .notum-intro h3 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .notum-intro p {
+    font-size: .86rem;
+    line-height: 1.65;
+    color: var(--text);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  .notum-intro p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .notum-intro .highlight {
+    color: var(--teal-d);
+    font-weight: 700;
+  }
+
+  .notum-intro .app-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    margin: 14px 0 6px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .notum-intro .app-features li {
+    font-size: .78rem;
+    font-weight: 600;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.7);
+    padding: 5px 12px 5px 8px;
+    border-radius: 20px;
+    border: 1px solid var(--line);
+    line-height: 1.3;
+  }
+
+  .notum-intro .app-features li::before {
+    content: "✓";
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    background: var(--teal);
+    color: #fff;
+    border-radius: 50%;
+    font-size: .55rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .notum-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--line), transparent);
+    margin: 18px 0 6px;
+  }
+
 </style>
 </head>
 <body>
@@ -303,18 +401,36 @@
       <div class="logo-container">
         <img src="notum_square_logo_4_white.PNG" alt="Logo" />
       </div>
-      <!-- 
-        INSTRUCCIONES: 
-        1. Reemplaza "tu-logo.png" con la ruta real de tu archivo PNG
-        2. Asegúrate de que tu PNG tenga fondo transparente
-        3. El logo aparecerá 3 veces más grande que el ícono anterior (174px × 174px)
-      -->
       <div class="eyebrow"><span>Structure &amp; Written Expression</span></div>
       <h2>Language Structure</h2>
       <p class="sub">Lee con atención las instrucciones y los ejemplos antes de comenzar.</p>
     </div>
 
     <div class="divider"></div>
+
+    <!-- ── NEW: NOTUM APP INTRODUCTION SECTION ── -->
+    <div class="block" style="padding-bottom: 0;">
+      <div class="notum-intro">
+        <div class="ni-badge">✨ NOTUM English · TOEFL ITP® Practice</div>
+        <h3>Bienvenido a tu práctica de Section 2</h3>
+        <p>
+          Esta aplicación te acompaña en la preparación de la <span class="highlight">Sección 2: Structure &amp; Written Expression</span> del examen TOEFL ITP®. Aquí encontrarás ejercicios diseñados para reforzar tu dominio de la gramática y la estructura del inglés académico, con explicaciones claras y retroalimentación inmediata.
+        </p>
+        <p>
+          Cada pregunta está cuidadosamente elaborada para simular el formato real del examen, permitiéndote practicar a tu ritmo y enfocarte en las áreas que más necesitas mejorar.
+        </p>
+        <ul class="app-features">
+          <li>Preguntas estilo TOEFL ITP®</li>
+          <li>Explicaciones detalladas</li>
+          <li>Práctica progresiva</li>
+          <li>Interfaz intuitiva</li>
+        </ul>
+        <div class="notum-divider"></div>
+        <p style="font-size: .82rem; color: var(--muted); margin-top: 10px;">
+          A continuación, revisa las instrucciones y ejemplos oficiales antes de comenzar tu práctica.
+        </p>
+      </div>
+    </div>
 
     <div class="block">
       <div class="kicker">Section 2 Part A Directions</div>
@@ -453,7 +569,6 @@
         </div>
       </div>
     </div>
-  </div>
   </div>
 
   <div class="footer-actions">
